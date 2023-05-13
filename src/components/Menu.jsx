@@ -35,10 +35,12 @@ function Menu() {
             <div className="flex justify-center space-y-6">
                 <div>
                 <button className="mt-10 sm:mx-auto sm:w-[400px] text-center sm:text-lg md:text-xl rounded-xl p-5 bg-teal-50 drop-shadow-md cursor-pointer hover:bg-cyan-500">
+                        <Link to={'/citas'}>
                         <span className="flex justify-center items-center">
                             <BsFillCalendarCheckFill className="mr-2" />
                             <span>Mis turnos</span>
                         </span>
+                        </Link>
                     </button>
                 </div>
             </div>
@@ -48,7 +50,9 @@ function Menu() {
                 <button className="mt-10 sm:mx-auto sm:w-[400px] text-center sm:text-lg md:text-xl rounded-xl p-5 bg-teal-50 drop-shadow-md cursor-pointer hover:bg-cyan-500">
                         <span className="flex justify-center items-center">
                             <BsFillCalendarPlusFill className="mr-2" />
-                            <span>Pedir turno</span>
+                            <span>
+                                <Link to="/CreateAppoint">Pedir turno</Link>
+                            </span>
                         </span>
                     </button>
                 </div>
@@ -56,6 +60,7 @@ function Menu() {
 
             <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                 <button className="underline focus:outline-none">
+
                     <Link to="/Login">Salir</Link>
                 </button>
             </p>

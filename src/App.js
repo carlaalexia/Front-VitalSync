@@ -6,6 +6,8 @@ import CreateUser from './components/CreateUser';
 import Menu from './components/Menu';
 import Profile from './components/EditProfile';
 import ViewProfile from './components/ViewProfile';
+import ViewMedAppoint from './components/ViewMedAppoint';
+import CreateMedAppoint from './components/CreateMedAppoint';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Profile" element={<Profile/>} />
         <Route path="/ViewProfile" element={<ViewProfile/>} />
+        <Route path="/citas" element={<ViewMedAppoint/>}/>
+        <Route path="/CreateAppoint" element={<CreateMedAppoint/>} />
       </Routes>
     </Router>
   );

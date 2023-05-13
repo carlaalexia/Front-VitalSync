@@ -4,6 +4,7 @@ import {
   BsFillEnvelopeFill,
   BsFillTelephoneFill,
   BsFillPostcardHeartFill,
+  BsArrowLeft
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
@@ -64,16 +65,24 @@ function ViewProfile() {
 
       <div class="mt-1 flex items-center justify-center gap-x-6 mr-5">
         <button
-          type="button"
-          class="text-sm font-semibold leading-6 text-gray-900"
-        >
-          <Link to="/Menu">Salir</Link>
-        </button>
-        <button
           type="submit"
           class="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           <Link to="/Profile">Editar</Link>
+        </button>
+      </div>
+
+      <div class="fixed bottom-5 left-7">
+        <button
+          type="button"
+          class="flex items-center text-sm font-semibold leading-8 text-gray-900"
+        >
+          <span>
+            <BsArrowLeft class="mr-2" />
+          </span>
+          <span>
+            <Link to="/Menu">Salir</Link>
+          </span>
         </button>
       </div>
     </div>
