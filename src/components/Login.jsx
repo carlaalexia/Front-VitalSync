@@ -20,14 +20,14 @@ function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6">
           <div>
             <div className="flex items-center justify-between">
               <label
                 for="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Contraseña
+                Usuario
               </label>
               <BsFillPersonFill className="justify-between mr-10" />
             </div>
@@ -70,7 +70,9 @@ function Login() {
               type="submit"
               class="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
+            <Link to="/Menu">
               Ingresar
+              </Link>
             </button>
           </div>
         </form>
