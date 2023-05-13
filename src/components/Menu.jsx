@@ -1,6 +1,7 @@
 import React from "react";
 import '../index.css';
 import { BsFillPersonFill, BsFillCalendarCheckFill, BsFillCalendarPlusFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Menu() {
     return(
@@ -32,10 +33,12 @@ function Menu() {
             <div className="flex justify-center space-y-6">
                 <div>
                 <button className="mt-10 sm:mx-auto sm:w-[400px] text-center sm:text-lg md:text-xl rounded-xl p-5 bg-teal-50 drop-shadow-md cursor-pointer hover:bg-cyan-500">
+                        <Link to={'/citas'}>
                         <span className="flex justify-center items-center">
                             <BsFillCalendarCheckFill className="mr-2" />
                             <span>Mis turnos</span>
                         </span>
+                        </Link>
                     </button>
                 </div>
             </div>

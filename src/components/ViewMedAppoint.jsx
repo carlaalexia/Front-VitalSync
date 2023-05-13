@@ -1,6 +1,7 @@
 import React from "react";
 import '../index.css';
 import { BsFillCalendarCheckFill} from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function ViewMedAppoint() {
 
@@ -8,6 +9,8 @@ function ViewMedAppoint() {
         { fecha: '2023-05-15', doctor: 'Dr. Juan Pérez', especialidad: 'Cardiología' },
         { fecha: '2023-05-17', doctor: 'Dra. María Gómez', especialidad: 'Pediatría' },
         { fecha: '2023-05-20', doctor: 'Dr. Carlos López', especialidad: 'Dermatología' },
+        { fecha: '2023-05-20', doctor: 'Dr. Carlos López', especialidad: 'Dermatología' },
+        
       ];
 
 
@@ -44,7 +47,9 @@ function ViewMedAppoint() {
           </table>
           <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                 <button className="underline focus:outline-none">
+                  <Link to={'/'}>
                     Volver
+                  </Link>
                 </button>
             </p>
         </div>
