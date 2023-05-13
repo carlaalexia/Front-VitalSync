@@ -1,14 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
-import Login from './components/Login'
-import CreateUser from './components/CreateUser'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Public from './routing/Public';
+import CreateUser from './components/CreateUser';
 
 function App() {
   return (
-    <div className="App">
-       <CreateUser/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Public />} />
+        <Route path="/CreateUser" element={<CreateUser />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
+
+
+
+
+
