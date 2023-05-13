@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsFillPersonFill, BsFillKeyFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -20,14 +21,14 @@ function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6">
           <div>
             <div className="flex items-center justify-between">
               <label
                 for="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Contraseña
+                Usuario
               </label>
               <BsFillPersonFill className="justify-between mr-10" />
             </div>
@@ -70,7 +71,9 @@ function Login() {
               type="submit"
               class="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
+            <Link to="/Menu">
               Ingresar
+              </Link>
             </button>
           </div>
         </form>
@@ -86,17 +89,12 @@ function Login() {
 
         <p className="mt-7 text-center text-sm text-gray-500">
           ¿No sos socio?
-          
-          <a
-            href="#"
+          <Link
+            to="/CreateUser"
             className="font-semibold leading-6 text-cyan-950 hover:text-cyan-800"
           >
-            {" "}
-            <Link to={'/registro'}>
             Registrate
-            </Link>
-          </a>
-          
+          </Link>
         </p>
       </div>
     </div>

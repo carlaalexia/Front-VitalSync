@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './components/Login'
-import CreateUser from './components/CreateUser'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Public from './routing/Public';
+import CreateUser from './components/CreateUser';
 import Menu from './components/Menu';
-import ViewMedAppoint from './components/ViewMedAppoint'
+import Profile from './components/EditProfile';
+import ViewProfile from './components/ViewProfile';
+import ViewMedAppoint from './components/ViewMedAppoint';
+import CreateMedAppoint from './components/CreateMedAppoint';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <Router>
       <Routes>
-        <Route exact path='/' element={<Login/>}></Route>
-        <Route exact path='/registro' element={<CreateUser/>}></Route>
-        <Route exact path='/menu' element={<Menu/>}></Route>
-        <Route exact path='/citas' element={<ViewMedAppoint/>}></Route>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Public />} />
+        <Route path="/CreateUser" element={<CreateUser />} />
+        <Route path="/Menu" element={<Menu />} />
+        <Route path="/Profile" element={<Profile/>} />
+        <Route path="/ViewProfile" element={<ViewProfile/>} />
+        <Route path="/citas" element={<ViewMedAppoint/>}/>
+        <Route path="/CreateAppoint" element={<CreateMedAppoint/>} />
       </Routes>
-      </BrowserRouter>
-    </div>
+    </Router>
   );
 }
 
 export default App;
+
+
+
+
+
+

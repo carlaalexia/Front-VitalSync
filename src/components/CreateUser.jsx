@@ -88,11 +88,9 @@ function CreateUser(){
           </form>
 
             <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
-                <button className="underline focus:outline-none">
-                  <Link to={'/'}>
+                <Link to="/Login"className="underline focus:outline-none">
                     Cancelar
-                  </Link>
-                </button>
+                </Link>
             </p>
         </div>
       </div>

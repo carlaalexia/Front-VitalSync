@@ -47,7 +47,7 @@ function ViewMedAppoint() {
           </table>
           <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                 <button className="underline focus:outline-none">
-                  <Link to={'/menu'}>
+                  <Link to={'/Menu'}>
                     Volver
                   </Link>
                 </button>
