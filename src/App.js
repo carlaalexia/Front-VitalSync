@@ -11,8 +11,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route exact path='/' element={<Menu/>}></Route>
-        <Route exact path='/registrar' element={<CreateUser/>}></Route>
+        <Route exact path='/' element={<Login/>}></Route>
+        <Route exact path='/registro' element={<CreateUser/>}></Route>
+        <Route exact path='/menu' element={<Menu/>}></Route>
         <Route exact path='/citas' element={<ViewMedAppoint/>}></Route>
       </Routes>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { BsFillPersonFill, BsFillKeyFill } from "react-icons/bs";
 
 function Login() {
@@ -85,14 +86,17 @@ function Login() {
 
         <p className="mt-7 text-center text-sm text-gray-500">
           ¿No sos socio?
+          
           <a
             href="#"
             className="font-semibold leading-6 text-cyan-950 hover:text-cyan-800"
           >
             {" "}
+            <Link to={'/registro'}>
             Registrate
-             
+            </Link>
           </a>
+          
         </p>
       </div>
     </div>

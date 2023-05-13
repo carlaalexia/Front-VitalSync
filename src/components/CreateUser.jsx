@@ -1,6 +1,7 @@
 import React from "react";
 import '../index.css';
 import { BsFillLockFill, BsFillEnvelopeFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 
 function CreateUser(){
@@ -88,7 +89,9 @@ function CreateUser(){
 
             <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                 <button className="underline focus:outline-none">
+                  <Link to={'/'}>
                     Cancelar
+                  </Link>
                 </button>
             </p>
         </div>

@@ -56,7 +56,9 @@ function Menu() {
 
             <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                 <button className="underline focus:outline-none">
+                    <Link to={'/'}>
                     Log out
+                    </Link>
                 </button>
             </p>
         </div>
