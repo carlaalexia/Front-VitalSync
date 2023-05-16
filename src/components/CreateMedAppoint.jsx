@@ -19,7 +19,7 @@ function CreateMedAppoint() {
           <div class="sm:col-span-3">
             <label
               for="especialista"
-              class="flex items-center block text-sm font-medium leading-6 text-emerald-900"
+              class="flex items-center text-sm font-medium leading-6 text-emerald-900"
             >
               <span>
                 <BsFillHeartPulseFill class="mr-2" />
@@ -48,7 +48,7 @@ function CreateMedAppoint() {
           <div class="sm:col-span-3">
             <label
               for="medico"
-              class="flex items-center block text-sm font-medium leading-6 text-emerald-900"
+              class="flex items-center text-sm font-medium leading-6 text-emerald-900"
             >
               <span>
                 <BsPersonSquare class="mr-2" />
