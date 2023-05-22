@@ -1,34 +1,29 @@
-import React, { useContext, useState } from "react";
 import '../index.css';
 import { BsFillLockFill, BsFillEnvelopeFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import ServiceCreateUser from "../Servicio/ServiceCreateUser";
 import { useFormik } from "formik";
-
+import ServiceCreateUser from "../Servicio/ServiceCreateUser";
 
 
 const CreateUser = () =>{
+  const pruebaSubmit = (e) => {
+    e.preventDefault();
+      values.usuario = values.usuario;
+      values.clave = values.clave;
+      ServiceCreateUser(values);
+      handleReset();
+      console.log(values);
+  };
 
-
-
-    //onSubmit para guardar los datos
-
-    const pruebaSubmit = (e) =>{
-      e.preventDefault();
-
-      ServiceCreateUser(values); 
-   
-      
-    };
-
-
-    //Libreria para inicializar los input del formulario
-    const { handleBlur, handleChange, values} =
-    useFormik({
-      initialValues: {
-        usuario: "",
-        clave:""
-      }});
+  const { handleBlur, handleChange, values, handleReset } = 
+  useFormik({
+    initialValues: {
+      id: null,
+      usuario: "",
+      clave: "",
+      repeatPassword: ""
+    },
+  });
 
     return(
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -36,7 +31,7 @@ const CreateUser = () =>{
           <img
             className="mx-auto h-[200px] w-auto"
             src="../assets/Logo.png"
-            alt="Your Company"
+            alt="VitalSync"
           />
           <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-cyan-900">
             ¡Hola! 
@@ -56,7 +51,6 @@ const CreateUser = () =>{
                 <div className="mt-2">
                 <input
                   id="usuario"
-                  name="usuario"
                   type="email"
                   autoComplete="usuario"
                   required
@@ -79,7 +73,6 @@ const CreateUser = () =>{
               <div className="mt-2">
                 <input
                   id="clave"
-                  name="clave"
                   type="password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -87,6 +80,25 @@ const CreateUser = () =>{
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="repeatPassword" className="block text-sm font-medium leading-6 text-cyan-900">
+                  Repetir contraseña
+                </label>
+                <BsFillLockFill/>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="repeatPassword"
+                  type="password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  />
               </div>
             </div>
             
