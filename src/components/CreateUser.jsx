@@ -1,16 +1,20 @@
 import '../index.css';
 import { BsFillLockFill, BsFillEnvelopeFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import ServiceCreateUser from "../Servicio/ServiceCreateUser";
 
 
 const CreateUser = () =>{
+  
+  const navigate = useNavigate();
+
   const pruebaSubmit = (e) => {
     e.preventDefault();
-      values.usuario = values.usuario;
+      values.email = values.email;
       values.clave = values.clave;
       ServiceCreateUser(values);
+      navigate('/Login');
       handleReset();
       console.log(values);
   };
@@ -19,7 +23,7 @@ const CreateUser = () =>{
   useFormik({
     initialValues: {
       id: null,
-      usuario: "",
+      email: "",
       clave: "",
       repeatPassword: ""
     },
@@ -50,12 +54,11 @@ const CreateUser = () =>{
                 </div>
                 <div className="mt-2">
                 <input
-                  id="usuario"
+                  id="email"
                   type="email"
-                  autoComplete="usuario"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
-                  value={values.usuario}
+                  value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />

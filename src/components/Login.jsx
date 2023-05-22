@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 import { BsFillPersonFill, BsFillKeyFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import login from "../Servicio/ServiceInicioSesion";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../Servicio/ServiceInicioSesion";
 
 function Login() {
-  const [form, setForm] = useState({
-    username: "",
-    password: ""
-  });
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  };
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const iniciarSesion = async (e) => {
-    e.preventDefault();
-    const { username, password } = form;
-    const response = await login(username, password);
-    if (response.success) {
-      const usuario = response.usuario;
-      alert(`Bienvenido ${usuario.nombre} ${usuario.apellido}`);
-      setForm({ ...form, usuario }); // Actualizar el estado utilizando setForm
-      window.location.href = './menu';
-    } else {
-      setForm({ ...form, error: response.message }); // Actualizar el estado con el mensaje de error
+  async function handleLogin(event) {
+    event.preventDefault();
+    try {
+      const response = await login(email, password);
+      console.log(response);
+      if (response.message === "Email no existe") {
+        alert("Email no existe");
+      } else if (response.message === "Login Success") {
+        alert("Bienvenido agradable sujeto");
+        navigate("/Menu");
+      } else {
+        alert("Email incorrecto y/o clave no coincide");
+      }
+    } catch (error) {
+      alert(error);
     }
-  };  
+  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
@@ -60,14 +57,14 @@ function Login() {
             </div>
             <div className="mt-2">
               <input
-                id="username"
-                name="username"
-                type="text"
-                autoComplete="username"
+                id="email"
+                type="email"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-teal-700 focus:ring-2 focus:ring-inset focus:ring-emerald-700 text-center sm:leading-7"
-                value={form.username}
-                onChange={handleChange}
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
               />
             </div>
           </div>
@@ -85,13 +82,13 @@ function Login() {
             <div className="mt-2">
               <input
                 id="password"
-                name="password"
                 type="password"
-                autocomplete="current-password"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-center sm:leading-7"
-                value={form.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
               />
             </div>
           </div>
@@ -99,10 +96,9 @@ function Login() {
           <div class="flex justify-center">
             <button
               type="submit"
-              class="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={iniciarSesion}
+              className="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleLogin}
             >
-            
               Ingresar
             </button>
           </div>
