@@ -4,25 +4,21 @@ function AlertSweet(num){
      
     switch(num){
         case 1:
-            swal({
-                title:"Hay Campos Obligatorios (nombre)",
-                icon: "warning",
-                buttons:"Aceptar"
-              });
+            swal("¡Bienvenido!", "Disfrute su visita");
         break;
         case 2:
             swal({
-                title:"Hay Campos Obligatorios (apellido)",
-                icon: "warning",
-                buttons:"Aceptar"
-              });
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El mail no existe',
+              })
         break;
         case 3:
             swal({
-                title:"Hay Campos Obligatorios (roles)",
-                icon: "warning",
-                buttons:"Aceptar"
-              });
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Email incorrecto y/o clave no coincide',
+              })
         break;
         case 4:
             swal({

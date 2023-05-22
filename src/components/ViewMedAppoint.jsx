@@ -1,6 +1,6 @@
 import React from "react";
 import '../index.css';
-import { BsFillCalendarCheckFill} from "react-icons/bs";
+import { BsFillCalendarCheckFill, BsArrowLeft} from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 function ViewMedAppoint() {
@@ -45,13 +45,20 @@ function ViewMedAppoint() {
               ))}
             </tbody>
           </table>
-          <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
-                <button className="underline focus:outline-none">
-                  <Link to={'/Menu'}>
-                    Volver
-                  </Link>
-                </button>
-            </p>
+
+          <div class="fixed bottom-5 left-7">
+          <button
+            type="button"
+            class="flex items-center text-md font-semibold leading-8 text-gray-900"
+          >
+            <span>
+              <BsArrowLeft class="mr-2" />
+            </span>
+            <span>
+              <Link to="/Menu">Salir</Link>
+            </span>
+          </button>
+        </div>
         </div>
       </div>
   );

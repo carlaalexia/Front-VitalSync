@@ -1,6 +1,9 @@
-async function ServiceCreateUser(e) {
+import AlertSweet from "../alerts/AlertUser";
+
+async function ServiceCreateUser(values) {
+  let num = 0;
   try {
-    const requesInit = {
+    const requestInit = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
