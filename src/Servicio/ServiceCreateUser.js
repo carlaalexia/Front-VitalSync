@@ -1,5 +1,8 @@
+import AlertSweet from "../alerts/AlertUser";
+
 async function ServiceCreateUser(e) {
-  try {
+  let num = 0;
+ 
     const requesInit = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -9,14 +12,11 @@ async function ServiceCreateUser(e) {
     const res = await fetch("http://localhost:8080/vitalsync/usuario/create", requesInit);
 
     if (!res.ok) {
-      throw new Error("Error al guardar el usuario");
+      AlertSweet(num = 8);
+    } else {
+      AlertSweet(num = 7);
     }
-
-    // Aquí puedes realizar alguna acción adicional después de guardar exitosamente la persona
-  } catch (error) {
-    console.log(error);
-    // Manejo de errores: mostrar un mensaje de error, registrar el error, etc.
-  }
+  
 }
 
 
