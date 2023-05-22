@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { BsFillPersonFill, BsFillKeyFill } from "react-icons/bs";
+import {
+  BsFillPersonFill,
+  BsFillKeyFill,
+  BsFillEyeFill,
+  BsFillEyeSlashFill,
+} from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../Servicio/ServiceInicioSesion";
+import AlertSweet from "../alerts/AlertUser";
 
 function Login() {
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleLogin(event) {
+    let num = 0;
     event.preventDefault();
     try {
       const response = await login(email, password);
@@ -17,10 +24,10 @@ function Login() {
       if (response.message === "Email not exits") {
         alert("Email no existe");
       } else if (response.message === "Login Success") {
-        alert("Bienvenido agradable sujeto");
+        AlertSweet((num = 1));
         navigate("/Menu");
       } else {
-        alert("Email incorrecto y/o clave no coincide");
+        AlertSweet((num = 3));
       }
     } catch (error) {
       alert(error);
@@ -53,7 +60,7 @@ function Login() {
               >
                 Usuario
               </label>
-              <BsFillPersonFill className="justify-between mr-10" />
+              <BsFillPersonFill className="justify-between mr-3" />
             </div>
             <div className="mt-2">
               <input
@@ -77,12 +84,13 @@ function Login() {
               >
                 Contraseña
               </label>
-              <BsFillKeyFill className="justify-between mr-10" />
+              <BsFillKeyFill className="justify-between mr-3" />
             </div>
-            <div className="mt-2">
+
+            <div className="mt-2 relative">
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-center sm:leading-7"
                 value={password}
@@ -90,6 +98,17 @@ function Login() {
                   setPassword(event.target.value);
                 }}
               />
+              <button
+                type="button" // Agrega el atributo type="button" aquí
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <BsFillEyeFill className="text-gray-600" />
+                ) : (
+                  <BsFillEyeSlashFill className="text-gray-600" />
+                )}
+              </button>
             </div>
           </div>
 
@@ -113,7 +132,7 @@ function Login() {
           </a>
         </div>
 
-        <p className="mt-7 text-center text-sm text-gray-500">
+        <p className="mt-7 text-center text-sm text-gray-500 mb-4">
           ¿No sos socio?
           <Link
             to="/CreateUser"
