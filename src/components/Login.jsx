@@ -14,7 +14,7 @@ function Login() {
     try {
       const response = await login(email, password);
       console.log(response);
-      if (response.message === "Email no existe") {
+      if (response.message === "Email not exits") {
         alert("Email no existe");
       } else if (response.message === "Login Success") {
         alert("Bienvenido agradable sujeto");
