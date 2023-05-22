@@ -54,10 +54,10 @@ function CreateMedAppoint() {
                 onChange={handleEspecialidadChange}
               >
                 <option value="">Seleccionar</option>
-                <option value="Cardiología">Cardiología</option>
+                <option value="Cardiologia">Cardiologia</option>
                 <option value="Oculista">Oculista</option>
-                <option value="Ginegolía">Ginegolía</option>
-                <option value="Pediatría">Pediatría</option>
+                <option value="Ginelogia">Ginecologia</option>
+                <option value="Pediatria">Pediatria</option>
                 <option value="Dermatología">Dermatologia</option>
                 <option value="Reumatologo">Reumatologia</option>
               </select>
@@ -102,23 +102,23 @@ function CreateMedAppoint() {
         </div>
       </div>
 
-      <div>
-        <table className="mt-4">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-            </tr>
-          </thead>
-          <tbody>
-            {medicos.map((medico, index) => (
-              <tr key={index}>
-                <td>{medico.nombre}</td>
-                <td>{medico.apellido}</td>
+      <div className="flex justify-center mt-20 mr-40">
+        <div>
+          <table className="w-[630px] bg-teal-50 border border-gray-300 drop-shadow-md">
+            <thead>
+              <tr className="bg-cyan-600">
+                <th className="py-2 px-4 border-b">Nombre Completo</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {medicos.map((nombreApellido, index) => (
+                <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
+                  <td className="py-2 px-4 border-b text-center">{nombreApellido}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="fixed bottom-5 left-7">
