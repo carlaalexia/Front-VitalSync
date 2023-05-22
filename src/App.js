@@ -8,6 +8,7 @@ import Profile from './components/EditProfile';
 import ViewProfile from './components/ViewProfile';
 import ViewMedAppoint from './components/ViewMedAppoint';
 import CreateMedAppoint from './components/CreateMedAppoint';
+import Admin from './components/Admin';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Public />} />
         <Route path="/CreateUser" element={<CreateUser />} />
+        <Route path="/Admin" element={<Admin/>}/>
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Profile" element={<Profile/>} />
         <Route path="/ViewProfile" element={<ViewProfile/>} />
