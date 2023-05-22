@@ -13,6 +13,8 @@ function ViewMedAppoint() {
         
       ];
 
+      console.log(turnos);
+
 
     return (
         <div className="flex items-center justify-center h-screen">
