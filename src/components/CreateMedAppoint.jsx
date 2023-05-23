@@ -18,6 +18,7 @@ function CreateMedAppoint() {
     try {
       const medicosEncontrados = await FindMed(especialidad);
       setMedicos(medicosEncontrados);
+      console.log(medicosEncontrados.json);
 
       console.log("Datos obtenidos:", medicosEncontrados);
     } catch (error) {

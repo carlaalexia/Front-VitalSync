@@ -12,7 +12,7 @@ async function FindMed(especialidad) {
   }
 
   const medicos = await response.json();
-  return medicos.map((medico) => `${medico.nombre} ${medico.apellido}`);
+  return medicos;
 }
 
 export default FindMed;
