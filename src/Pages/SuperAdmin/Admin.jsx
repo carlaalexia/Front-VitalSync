@@ -1,10 +1,10 @@
-import '../index.css';
+import '../../index.css';
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import React, { useState, useEffect } from 'react';
-import ServiceCreateUser from "../Servicio/ServiceCreateUser";
-import ServiceCreateMed from "../Servicio/ServiceCreateMed";
-import listMed from '../Servicio/ServiceListMed';
+import ServiceCreateUser from "../../Servicio/ServiceCreateUser";
+import ServiceCreateMed from "../../Servicio/ServiceCreateMed";
+import listMed from '../../Servicio/ServiceListMed';
 
 
 const Admin = () =>{

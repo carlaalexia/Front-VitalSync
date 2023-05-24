@@ -5,7 +5,7 @@ import {
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import FindMed from "../Servicio/ServiceFindMed";
+import FindMed from "../../Servicio/ServiceFindMed";
 
 function CreateMedAppoint() {
   const [medicos, setMedicos] = useState([]);

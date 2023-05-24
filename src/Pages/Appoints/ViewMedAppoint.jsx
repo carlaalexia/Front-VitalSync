@@ -1,5 +1,5 @@
 import React from "react";
-import '../index.css';
+import '../../index.css';
 import { BsFillCalendarCheckFill, BsArrowLeft} from "react-icons/bs";
 import { Link } from "react-router-dom";
 

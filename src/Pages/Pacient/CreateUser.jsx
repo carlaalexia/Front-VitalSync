@@ -1,8 +1,8 @@
-import '../index.css';
+import '../../index.css';
 import { BsFillLockFill, BsFillEnvelopeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import ServiceCreateUser from "../Servicio/ServiceCreateUser";
+import ServiceCreateUser from "../../Servicio/ServiceCreateUser";
 
 
 const CreateUser = () =>{
