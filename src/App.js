@@ -9,15 +9,15 @@ import ViewProfile from './Pages/Pacient/ViewProfile';
 import ViewMedAppoint from './Pages/Appoints/ViewMedAppoint';
 import CreateMedAppoint from './Pages/Appoints/CreateMedAppoint';
 import Admin from './Pages/SuperAdmin/Admin';
-import HomePage from './Pages/HomePage'
 import Nav from './components/Nav';
+import NavUser from './components/NavUser';
 import MedReview from './Pages/MedRewiew';
 
 function App() {
   return (
     <Router>
       <div>
-        <Nav /> {/* Mover el componente Nav aquí */}
+        <NavUser /> {/* Mover el componente Nav aquí */}
         <Routes>
           <Route path="/" element={<Navigate to="/homePage" replace />} />
           <Route path="/homePage" element={<Public />} />

@@ -37,14 +37,6 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-48 w-auto"
-          src="../assets/Logo.png"
-          alt="VitalS"
-        />
-        <h2 className="mt-1 text-center text-3xl font-bold leading-7 tracking-tight text-emerald-900">
-          VitalSync
-        </h2>
         <h3 className="block text-sm font-medium leading-4 mt-6 text-center">
           Inicia sesión en tu cuenta
         </h3>
