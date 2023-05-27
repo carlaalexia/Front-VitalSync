@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import listMed from '../../Servicio/ServiceListMed';
 import { deleteMedico } from '../../Servicio/ServiceDeleteMed';
-import { toggleMedicoEstado } from '../../Servicio/ServiceUndeleteMed';
+import { toggleMedicoEstado } from '../../Servicio/ServiceChangeStateMed';
 
 const ListMed = () =>{
 
@@ -30,6 +30,14 @@ const ListMed = () =>{
       }
     };
 
+    const handleDeleteMedico = async (medicoId) => {
+      try {
+        await deleteMedico(medicoId, setMedicos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
   return (
     <div className="flex flex-col min-h-screen justify-center items-center px-6 py-12 lg:px-8">
 
@@ -56,6 +64,11 @@ const ListMed = () =>{
                     checked={medico.estado}
                     onChange={() => handleToggleEstado(medico.id)}
                   />
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <button onClick={() => handleDeleteMedico(medico.id)}>
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
