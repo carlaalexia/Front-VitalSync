@@ -1,26 +1,23 @@
 export const deleteMedico = async (medicoId, setMedicos) => {
-    try {
-      const response = await fetch(`http://localhost:8080/vitalsync/profesional/eliminar/${medicoId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ estado: false }) // Envía el nuevo estado como parámetro en el cuerpo de la solicitud
-      });
-  
-      if (response.ok) {
-        // Cambio de estado exitoso
-        // Actualiza la lista de médicos cambiando el estado del médico correspondiente a false
-        setMedicos((prevMedicos) =>
-          prevMedicos.map((medico) =>
-            medico.id === medicoId ? { ...medico, estado: false } : medico
-          )
-        );
-      } else {
-        // Error en el cambio de estado
-        console.log('Error al cambiar el estado del médico');
+  try {
+    const response = await fetch(`http://localhost:8080/vitalsync/profesional/eliminar/${medicoId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    } catch (error) {
-      console.log(error);
+    });
+
+    if (response.ok) {
+      // Eliminación exitosa
+      // Actualiza la lista de médicos eliminando el médico correspondiente
+      setMedicos((prevMedicos) =>
+        prevMedicos.filter((medico) => medico.id !== medicoId)
+      );
+    } else {
+      // Error en la eliminación
+      console.log('Error al eliminar el médico');
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};

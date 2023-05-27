@@ -1,6 +1,6 @@
 export const toggleMedicoEstado = async (medicoId, setMedicos) => {
     try {
-      const response = await fetch(`http://localhost:8080/vitalsync/profesional/eliminar/${medicoId}`, {
+      const response = await fetch(`http://localhost:8080/vitalsync/profesional/modificarEstado/${medicoId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
