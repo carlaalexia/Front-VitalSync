@@ -1,4 +1,11 @@
-body{
-  background-color: #d9ebec;
+body {
+  background-image: url("../public/assets/rombo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat:wght@300&family=Playfair&display=swap');
+
+h1, h2, div, p, section {
+  font-family: 'Montserrat', serif;
+}

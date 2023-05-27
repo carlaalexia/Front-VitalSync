@@ -1,0 +1,12 @@
+.appoint-menu {
+    left: 60%;
+    transform: translateX(-50%);
+    top: 1.6rem; /* Ajusta la distancia vertical según tus necesidades */
+  }
+
+
+  .appoint-menu2 {
+    left: 60%;
+    transform: translateX(-50%);
+    top: 1.9rem; /* Ajusta la distancia vertical según tus necesidades */
+  }

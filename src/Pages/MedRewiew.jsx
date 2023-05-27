@@ -1,0 +1,111 @@
+import React, { useState } from "react";
+import { FaStar } from "react-icons/fa";
+
+const MedReview = () => {
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+
+  const doctors = [
+    { id: 1, name: "Juan Perez", image: "../assets/doctor1.webp", especialidad: "Cardiologo", rating: 4.5 },
+    { id: 2, name: "Carlos Lopez", image: "../assets/doctor2.jpg", especialidad: "Dermatologo", rating: 3.8 },
+    { id: 3, name: "Maria Gomez", image: "../assets/doctora1.jpg", especialidad: "Pediatra", rating: 4.2 },
+  ];
+
+  const handleDoctorSelect = (doctor) => {
+    setSelectedDoctor(doctor);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    if (newComment.trim() !== "") {
+      setComments((prevComments) => [
+        ...prevComments,
+        { comment: newComment, user: "Karina", image: "../assets/gatos.jpg" },
+      ]);
+      setNewComment("");
+    }
+  };
+
+  const renderRatingStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<FaStar key={i} className="text-yellow-500" />);
+      } else {
+        stars.push(<FaStar key={i} className="text-gray-400" />);
+      }
+    }
+    return stars;
+  };
+
+  return (
+    <div className="flex flex-col items-center">
+      <div className="w-1/2 mb-4">
+        <div className="bg-sky-900 bg-opacity-50 rounded-lg shadow p-4 mt-8">
+          <h2 className="text-2xl font-bold mb-4">Conoce a nuestros profesionales</h2>
+          <select
+            className="border p-2 mb-4 rounded-lg"
+            onChange={(e) => handleDoctorSelect(JSON.parse(e.target.value))}
+          >
+            <option value="">Seleccione</option>
+            {doctors.map((doctor) => (
+              <option key={doctor.id} value={JSON.stringify(doctor)}>
+                {doctor.name}
+              </option>
+            ))}
+          </select>
+          {selectedDoctor && (
+            <div className="flex flex-col items-center">
+              <img
+                src={selectedDoctor.image}
+                alt={selectedDoctor.name}
+                className="w-40 h-40 object-cover rounded-full mb-2"
+              />
+              <p className="mb-2 text-center">{selectedDoctor.especialidad}</p>
+              <div className="flex">
+                {renderRatingStars(selectedDoctor.rating)}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="w-3/4">
+        <div className="bg-gray-200 rounded-lg shadow p-4">
+          <h2 className="text-2xl font-bold mb-4">Comentarios de Usuarios</h2>
+          {comments.map((comment, index) => (
+            <div key={index} className="flex items-center mb-4">
+              <img
+                src={comment.image}
+                alt="Usuario"
+                className="w-10 h-10 object-cover rounded-full mr-2"
+              />
+               <div>
+                <p className="font-bold">{comment.user}</p>
+                <p>{comment.comment}</p>
+              </div>
+            </div>
+          ))}
+          <hr className="my-4 border-gray-400" />
+          <form onSubmit={handleCommentSubmit}>
+            <input
+              type="text"
+              className="border p-2 w-full mb-4"
+              placeholder="Deja un comentario"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Enviar comentario
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MedReview;
