@@ -9,7 +9,8 @@ async function ServiceCreateUser(values) {
       body: JSON.stringify(values),
     };
 
-    const res = await fetch("http://localhost:8080/vitalsync/usuario/create", requestInit);
+    const res = await fetch("http://localhost:8080/vitalsync/paciente/create", requestInit)
+    
 
     if (!res.ok) {
       AlertSweet(num = 8);
@@ -20,10 +21,7 @@ async function ServiceCreateUser(values) {
     // Aquí puedes realizar alguna acción adicional después de guardar exitosamente la persona
   } catch (error) {
     console.log(error);
-    // Manejo de errores: mostrar un mensaje de error, registrar el error, etc.
   }
 }
-
-
 
 export default ServiceCreateUser;

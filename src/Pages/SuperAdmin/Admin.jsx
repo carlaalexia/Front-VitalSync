@@ -1,81 +1,32 @@
 import '../../index.css';
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import React, { useState, useEffect } from 'react';
-import ServiceCreateUser from "../../Servicio/ServiceCreateUser";
+import React from 'react';
 import ServiceCreateMed from "../../Servicio/ServiceCreateMed";
-import listMed from '../../Servicio/ServiceListMed';
 
 
 const Admin = () =>{
-  //const [medicos, setMedicos] = useState([]);
-
-  /*useEffect(() => {
-    const fetchMedicos = async () => {
-      try {
-        const response = listMed();
-        if (response.success) {
-          setMedicos(response.data);
-          console.log(response.data);
-        } else {
-          console.log(response.message);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
   
-    fetchMedicos();
-  }, []);*/
 
   const pruebaSubmit = (e) => {
     e.preventDefault();
-      values.usuario = values.usuario;
-      values.clave = values.clave;
-      ServiceCreateUser(values);
+      values.nombre = values.nombre;
+      values.apellido = values.apellido;
+      values.usuario = {email: values.email, clave: values.clave};
+      values.especialidad = values.especialidad;
+      ServiceCreateMed(values);
       handleReset();
       console.log(values);
   };
 
-  /*const pruebaSubmit = (e) => {
-    e.preventDefault();
-      values.nombre = values.nombre;
-      values.apellido = values.apellido;
-      values.mail = values.mail;
-      values.telefono  = values.telefono;
-      values.especialidad = values.especialidad;
-      values.estado = values.estado;
-      values.matricula = values.matricula;
-      values.telemedicina = values.telemedicina;
-      values.presencial = values.presencial;
-      values.coberturaMedicaList = values.coberturaMedicaList;
-      values.ubicacion = values.ubicacion;
-      values.honorario = values.honorario;
-      values.diasTrabajo = [{id_dia: null, dia: values.dia, horaEntrada: values.horaEntrada, horaSalida: values.horaSalida}];
-      values.usuario = {id: null, usuario: values.usuario, clave: values.clave};
-      ServiceCreateMed(values);
-      handleReset();
-      console.log(values);
-  };*/
-
   const { handleBlur, handleChange, values, handleReset } = 
   useFormik({
     initialValues: {
-      id: null,
+      email: "",
       nombre: "",
       apellido: "",
-      mail: "",
-      telefono: "",
-      especialidad: true,
-      estado: true,
-      matricula: "",
-      telemedicina: true,
-      presencial: true,
-      coberturaMedicaList: "",
-      ubicacion: "",
-      honorario: "",
-      diasTrabajo: [],
-      usuario: []
+      clave: "",
+      especialidad: ""
     },
   });
 
@@ -100,12 +51,11 @@ const Admin = () =>{
               </div>
               <div className="mt-2">
                 <input
-                  id="usuario"
+                  id="email"
                   type="email"
-                  autoComplete="usuario"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
-                  value={values.usuario}
+                  value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -114,7 +64,7 @@ const Admin = () =>{
 
             <div className="flex items-center justify-between">
               <div className="flex space-x-2 items-center">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-cyan-900">
+                <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-cyan-900">
                   Nombre
                 </label>
               </div>
@@ -133,7 +83,7 @@ const Admin = () =>{
 
             <div className="flex items-center justify-between">
               <div className="flex space-x-2 items-center">
-                <label htmlFor="repeatPassword" className="block text-sm font-medium leading-6 text-cyan-900">
+                <label htmlFor="apellido" className="block text-sm font-medium leading-6 text-cyan-900">
                   Apellido
                 </label>
               </div>
@@ -151,7 +101,7 @@ const Admin = () =>{
 
             <div className="flex items-center justify-between">
               <div className="flex space-x-2 items-center">
-                <label htmlFor="repeatPassword" className="block text-sm font-medium leading-6 text-cyan-900">
+                <label htmlFor="especialidad" className="block text-sm font-medium leading-6 text-cyan-900">
                   Especialidad
                 </label>
               </div>
@@ -169,7 +119,7 @@ const Admin = () =>{
 
             <div className="flex items-center justify-between">
               <div className="flex space-x-2 items-center">
-                <label htmlFor="repeatPassword" className="block text-sm font-medium leading-6 text-cyan-900">
+                <label htmlFor="clave" className="block text-sm font-medium leading-6 text-cyan-900">
                   Contraseña temporal
                 </label>
               </div>
@@ -196,29 +146,7 @@ const Admin = () =>{
           </form>
         </div>
 
-        <div className="p-5 border bg-teal-50 mx-auto h-full rounded-xl drop-shadow-md">
-          <h3 className="text-lg font-bold mb-4">Listar Profesionales</h3>
-          <table className="w-[630px] bg-gray-50 border border-gray-300 drop-shadow-md">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="py-2 px-4 border-b">Mail</th>
-                <th className="py-2 px-4 border-b">Nombre</th>
-                <th className="py-2 px-4 border-b">Apellido</th>
-                <th className="py-2 px-4 border-b">Especialidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              {medicos.map((medico, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
-                  <td className="py-2 px-4 border-b">{medico.mail}</td>
-                  <td className="py-2 px-4 border-b">{medico.nombre}</td>
-                  <td className="py-2 px-4 border-b">{medico.apellido}</td>
-                  <td className="py-2 px-4 border-b">{medico.especialidad}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        
 
       <p className="mt-10 text-center text-sm text-gray-500 cursor-pointer hover:text-gray-700">
         <Link to="/Login" className="underline focus:outline-none">

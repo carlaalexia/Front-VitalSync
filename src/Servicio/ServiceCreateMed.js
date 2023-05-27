@@ -1,4 +1,8 @@
+import AlertSweet from "../alerts/AlertUser";
+
 async function ServiceCreateMed(values) {
+  let num = 0;
+
     try {
       const requestInit = {
         method: "POST",
@@ -9,7 +13,9 @@ async function ServiceCreateMed(values) {
       const res = await fetch("http://localhost:8080/vitalsync/profesional/create", requestInit);
   
       if (!res.ok) {
-        throw new Error("Error al guardar el usuario");
+        AlertSweet(num = 8);
+      } else {
+        AlertSweet(num = 7);
       }
   
       // Aquí puedes realizar alguna acción adicional después de guardar exitosamente el usuario

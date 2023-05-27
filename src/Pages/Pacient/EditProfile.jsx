@@ -98,7 +98,7 @@ function Profile() {
               <div className="sm:col-span-3 w-1/2 ml-28">
                 <label
                   for="email"
-                  class="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Email
                 </label>

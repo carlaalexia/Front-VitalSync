@@ -22,10 +22,10 @@ function Login() {
       const response = await login(email, password);
       console.log(response);
       if (response.message === "Email not exits") {
-        AlertSweet((num = 2));
+        alert("Email no existe");
       } else if (response.message === "Login Success") {
         AlertSweet((num = 1));
-        navigate("/Menu");
+        navigate("/homePage");
       } else {
         AlertSweet((num = 3));
       }
@@ -104,7 +104,7 @@ function Login() {
             </div>
           </div>
 
-          <div class="flex justify-center">
+          <div className="flex justify-center">
             <button
               type="submit"
               className="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -115,7 +115,7 @@ function Login() {
           </div>
         </form>
 
-        <div class="text-sm mt-4 text-center">
+        <div className="text-sm mt-4 text-center">
           <a
             href="#"
             className="font-semibold text-cyan-950 hover:text-cyan-800"

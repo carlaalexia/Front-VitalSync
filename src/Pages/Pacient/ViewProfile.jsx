@@ -1,6 +1,5 @@
 import {
   BsFillPersonFill,
-  BsFillCameraFill,
   BsFillEnvelopeFill,
   BsFillTelephoneFill,
   BsFillPostcardHeartFill,
