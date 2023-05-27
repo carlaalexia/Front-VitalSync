@@ -25,7 +25,7 @@ function Login() {
         alert("Email no existe");
       } else if (response.message === "Login Success") {
         AlertSweet((num = 1));
-        navigate("/Menu");
+        navigate("/homePage");
       } else {
         AlertSweet((num = 3));
       }
@@ -37,14 +37,6 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-48 w-auto"
-          src="../assets/Logo.png"
-          alt="VitalS"
-        />
-        <h2 className="mt-1 text-center text-3xl font-bold leading-7 tracking-tight text-emerald-900">
-          VitalSync
-        </h2>
         <h3 className="block text-sm font-medium leading-4 mt-6 text-center">
           Inicia sesión en tu cuenta
         </h3>
@@ -112,7 +104,7 @@ function Login() {
             </div>
           </div>
 
-          <div class="flex justify-center">
+          <div className="flex justify-center">
             <button
               type="submit"
               className="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -123,7 +115,7 @@ function Login() {
           </div>
         </form>
 
-        <div class="text-sm mt-4 text-center">
+        <div className="text-sm mt-4 text-center">
           <a
             href="#"
             className="font-semibold text-cyan-950 hover:text-cyan-800"

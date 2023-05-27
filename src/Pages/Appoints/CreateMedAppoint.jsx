@@ -122,19 +122,6 @@ function CreateMedAppoint() {
         </div>
       </div>
 
-      <div className="fixed bottom-5 left-7">
-        <button
-          type="button"
-          className="flex items-center text-md font-semibold leading-8 text-gray-900"
-        >
-          <span>
-            <BsArrowLeft className="mr-2" />
-          </span>
-          <span>
-            <Link to="/Menu">Salir</Link>
-          </span>
-        </button>
-      </div>
     </div>
   );
 }

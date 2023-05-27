@@ -11,9 +11,6 @@ function ViewProfile() {
   return (
     <div>
       <div className="flex items-center justify-start">
-        <div className="px-4 sm:px-0 mt-10">
-          <h3 className="text-base font-bold leading-7 text-emerald-900 ml-7">Perfil</h3>
-        </div>
         <div className="col-span-full flex items-center justify-center gap-x-3 mt-2 flex-grow">
           <img
             src="./assets/gatos.jpg"
@@ -71,19 +68,6 @@ function ViewProfile() {
         </button>
       </div>
 
-      <div className="fixed bottom-5 left-7">
-        <button
-          type="button"
-          className="flex items-center text-md font-semibold leading-8 text-gray-900"
-        >
-          <span>
-            <BsArrowLeft class="mr-2" />
-          </span>
-          <span>
-            <Link to="/Menu">Salir</Link>
-          </span>
-        </button>
-      </div>
     </div>
   );
 }
