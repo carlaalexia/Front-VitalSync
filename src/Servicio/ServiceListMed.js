@@ -1,6 +1,6 @@
 const listMed = async () => {
     try {
-      const response = await fetch('http://localhost:8080/vitalsync/usuario/listar', {
+      const response = await fetch('http://localhost:8080/vitalsync/profesional/listar', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -15,4 +15,4 @@ const listMed = async () => {
     }
   };
   
-  export default listMed;
+export default listMed;

@@ -10,6 +10,7 @@ import ViewProfile from './Pages/Pacient/ViewProfile';
 import ViewMedAppoint from './Pages/Appoints/ViewMedAppoint';
 import CreateMedAppoint from './Pages/Appoints/CreateMedAppoint';
 import Admin from './Pages/SuperAdmin/Admin';
+import ListMed from './Pages/SuperAdmin/ListMed';
 import HomePage from './Pages/HomePage'
 import Nav from './components/Nav';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/CreateUser" element={<CreateUser />} />
           <Route path="/Admin" element={<Admin/>}/>
+          <Route path="/Alist" element={<ListMed/>}/>
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Profile" element={<Profile/>} />
           <Route path="/ViewProfile" element={<ViewProfile/>} />

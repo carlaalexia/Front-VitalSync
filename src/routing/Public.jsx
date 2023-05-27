@@ -8,8 +8,8 @@ import ViewProfile from "../Pages/Pacient/EditProfile";
 import ViewMedAppoint from "../Pages/Appoints/ViewMedAppoint";
 import CreateMedAppoint from "../Pages/Appoints/CreateMedAppoint";
 import Admin from "../Pages/SuperAdmin/Admin";
-import Nav from "../components/Nav";
 import HomePage from '../Pages/HomePage'
+import ListMed from "../Pages/SuperAdmin/ListMed";
 
 const Public = () => {
   return (
@@ -20,6 +20,7 @@ const Public = () => {
         <Route path="/CreateUser" element={<CreateUser />} />
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Admin" element={<Admin />} />
+        <Route path="/Alist" element={<ListMed/>}/>
         <Route path="/Profile" element={<Profile />} />
         <Route path="/ViewProfile" element={<ViewProfile />} />
         <Route path="/citas" element={<ViewMedAppoint />} />
