@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import listMed from '../../Servicio/ServiceListMed';
 import { deleteMedico } from '../../Servicio/ServiceDeleteMed';
+import { toggleMedicoEstado } from '../../Servicio/ServiceUndeleteMed';
 
 const ListMed = () =>{
 
@@ -21,6 +22,14 @@ const ListMed = () =>{
         fetchData();
     }, []);
 
+    const handleToggleEstado = async (medicoId) => {
+      try {
+        await toggleMedicoEstado(medicoId, setMedicos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   return (
     <div className="flex flex-col min-h-screen justify-center items-center px-6 py-12 lg:px-8">
 
@@ -33,24 +42,24 @@ const ListMed = () =>{
               <th className="py-2 px-4 border-b">Apellido</th>
               <th className="py-2 px-4 border-b">Especialidad</th>
               <th className="py-2 px-4 border-b">Estado</th>
-              <th className="py-2 px-4 border-b">Acciones</th> {/* Columna para las acciones */}
             </tr>
           </thead>
           <tbody>
             {medicos.map((medico, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+              <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
                 <td className="py-2 px-4 border-b">{medico.nombre}</td>
                 <td className="py-2 px-4 border-b">{medico.apellido}</td>
                 <td className="py-2 px-4 border-b">{medico.especialidad}</td>
-                <td className="py-2 px-4 border-b">{medico.estado ? <span>&#10003;</span> : null}</td>
                 <td className="py-2 px-4 border-b">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => deleteMedico(medico.id, setMedicos)}>
-                     Eliminar 
-                </button>
+                  <input
+                    type="checkbox"
+                    checked={medico.estado}
+                    onChange={() => handleToggleEstado(medico.id)}
+                  />
                 </td>
-                 </tr>
+              </tr>
             ))}
-         </tbody>
+          </tbody>
         </table>
         </div>
 
