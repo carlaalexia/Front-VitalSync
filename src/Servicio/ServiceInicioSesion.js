@@ -15,7 +15,7 @@ export async function login(email, password) {
     if (response.status === 200) {
       const role = response.data; // Obtiene el rol del usuario desde la respuesta
       console.log("Rol del usuario:", role); // Imprime el rol del usuario en la consola
-      return role;
+      return { data: role }; // Devuelve un objeto con la propiedad 'data'
     } else {
       throw new Error("Error en la solicitud");
     }

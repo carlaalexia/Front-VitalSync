@@ -20,14 +20,13 @@ function Login() {
     event.preventDefault();
     try {
       const response = await login(email, password);
-      console.log(response);
-      if (response.message === "Email not exits") {
-        alert("Email no existe");
-      } else if (response.message === "Login Success") {
-        AlertSweet((num = 1));
+      if (response.data === "ROL_ADMIN") {
+        AlertSweet(1);
         navigate("/homePage");
+      } else if (response.data === "Email not exists") {
+        alert("Email no existe");
       } else {
-        AlertSweet((num = 3));
+        AlertSweet(3);
       }
     } catch (error) {
       alert(error);

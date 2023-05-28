@@ -21,15 +21,44 @@ import NavAdmin from "./components/NavAdmin";
 import MedReview from "./Pages/MedRewiew";
 
 function App() {
-  let navigation = null;
-  const userRole = localStorage.getItem("userRole");
+  const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  if (userRole === "PACIENTE") {
-    navigation = <NavUser />;
-  } else if (userRole === "Admin") {
-    navigation = <NavAdmin />;
+  useEffect(() => {
+    if (userRole) {
+      setIsLoggedIn(true);
+      console.log("Rol usuario:", userRole); // Imprimir el rol del usuario en la consola
+    }
+  }, [userRole]);
+
+  function handleLogin(role) {
+    localStorage.setItem("userRole", role);
+    setUserRole(role);
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("userRole");
+    setUserRole(null);
+    setIsLoggedIn(false);
+  }
+
+  let navigation = null;
+
+  if (isLoggedIn) {
+    if (userRole === "ROL_PACIENTE") {
+      console.log("Mostrando NavUser"); 
+      navigation = <NavUser onLogout={handleLogout} />;
+    } else if (userRole === "ROL_ADMIN") {
+      console.log("Mostrando NavAdmin");
+      navigation = <NavAdmin onLogout={handleLogout} />;
+    } else {
+      console.log("Mostrando Nav");
+      navigation = <Nav onLogout={handleLogout} />;
+    }
   } else {
-    navigation = <Nav />; // Aquí puedes utilizar tu componente Nav principal
+    console.log("Mostrando Nav");
+    navigation = <Nav onLogin={handleLogin} />;
   }
 
   return (
@@ -38,7 +67,7 @@ function App() {
         {navigation}
         <Routes>
           <Route path="/" element={<Navigate to="/homePage" replace />} />
-          <Route path="/homePage" element={<Public />} />
+          <Route path="/homePage/*" element={<Public />} />
           <Route path="/login" element={<Login />} />
           <Route path="/CreateUser" element={<CreateUser />} />
           <Route path="/Admin" element={<Admin />} />
