@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../CSS/homefile.css";
 import {
   BsFacebook,
@@ -10,6 +10,33 @@ import {
 } from "react-icons/bs";
 
 const HomePage = () => {
+  const [animationOneComplete, setAnimationOneComplete] = useState(false);
+  const [animationTwoComplete, setAnimationTwoComplete] = useState(false);
+  const sectionRef = useRef(null);
+  const socialMediaRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionPosition = sectionRef.current.getBoundingClientRect().top;
+      const socialMediaPosition = socialMediaRef.current.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+
+      if (!animationOneComplete && sectionPosition < windowHeight) {
+        setAnimationOneComplete(true);
+      }
+
+      if (!animationTwoComplete && socialMediaPosition < windowHeight) {
+        setAnimationTwoComplete(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [animationOneComplete, animationTwoComplete]);
+
+  const sectionClasses = `services-section ${animationOneComplete ? "slide-in" : ""}`;
+  const socialMediaClasses = `carousel-container ${animationTwoComplete ? "slide-in-right" : ""}`;
+
   const carouselRef = useRef(null);
 
   const scrollLeft = () => {
@@ -61,36 +88,42 @@ const HomePage = () => {
         </div>
       </div>
       <main>
-        <div className="text-center">
-          <p className="text-4xl text-black mt-16 mb-8">¿Por qué elegirnos?</p>
-        </div>
-        <section className="services-section">
-          <div className="bg-gray-200 bg-opacity-65 p-8 shadow-lg rounded-lg max-w-lg mx-auto">
-            <ul className="list-disc list-inside mt-4">
-              <li className="mb-4">
-                Nuestro sistema te permite buscar y seleccionar a los
-                profesionales de la salud que necesitas. Podrás ver la
-                información detallada de cada médico, incluyendo sus
-                calificaciones y comentarios de otros pacientes, para tomar la
-                mejor decisión.
-              </li>
-              <li className="mb-4">
-                Una vez que hayas seleccionado al médico de tu preferencia,
-                podrás elegir la fecha y hora más conveniente para tu consulta.
-              </li>
-              <li className="mb-4">
-                Todo esto desde la comodidad de tu hogar o cualquier lugar donde
-                te encuentres, las 24 horas del día, los 7 días de la semana.
-              </li>
-              <li>
-                ¡Explora nuestra página y comienza a disfrutar de la comodidad
-                de gestionar tus turnos médicos en línea!
-              </li>
-            </ul>
+        <div ref={sectionRef} className={sectionClasses}>
+          <div className="text-center">
+            <p className="text-4xl text-black mt-16 mb-8">
+              ¿Por qué elegirnos?
+            </p>
           </div>
-        </section>
+          <section>
+            <div className="bg-gray-200 bg-opacity-65 p-8 shadow-lg rounded-lg max-w-lg mx-auto">
+              <ul className="list-disc list-inside mt-4">
+                <li className="mb-4">
+                  Nuestro sistema te permite buscar y seleccionar a los
+                  profesionales de la salud que necesitas. Podrás ver la
+                  información detallada de cada médico, incluyendo sus
+                  calificaciones y comentarios de otros pacientes, para tomar la
+                  mejor decisión.
+                </li>
+                <li className="mb-4">
+                  Una vez que hayas seleccionado al médico de tu preferencia,
+                  podrás elegir la fecha y hora más conveniente para tu
+                  consulta.
+                </li>
+                <li className="mb-4">
+                  Todo esto desde la comodidad de tu hogar o cualquier lugar
+                  donde te encuentres, las 24 horas del día, los 7 días de la
+                  semana.
+                </li>
+                <li>
+                  ¡Explora nuestra página y comienza a disfrutar de la comodidad
+                  de gestionar tus turnos médicos en línea!
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
 
-        <section>
+        <section ref={socialMediaRef} className={socialMediaClasses}>
           <div className="text-center">
             <p className="text-4xl text-black mt-16 mb-8">
               Obras sociales asociadas
@@ -185,16 +218,18 @@ const HomePage = () => {
             </div>
             <div className="flex flex-col items-end">
               <h1 className="text-white">Baja la aplicación móvil</h1>
-              <img
-                src="../assets/google.svg"
-                alt="Google Play"
-                className="mt-2 mr-7"
-              />
+              <a href="https://vital-movil.vercel.app/login">
+                <img
+                  src="../assets/google.svg"
+                  alt="Google Play"
+                  className="mt-2 mr-7"
+                />
+              </a>
             </div>
           </div>
 
           <h6 className="text-gray-500 text-center mt-10">
-            © 2020-2023 Vital sync. Todos los derechos reservados.
+            © 2020-2023 Vital Sync. Todos los derechos reservados.
           </h6>
         </section>
       </main>

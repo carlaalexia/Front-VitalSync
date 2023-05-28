@@ -7,7 +7,7 @@ const MedReview = () => {
   const [newComment, setNewComment] = useState("");
 
   const doctors = [
-    { id: 1, name: "Juan Perez", image: "../assets/doctor1.webp", especialidad: "Cardiologo", rating: 4.5 },
+    { id: 1, name: "Juan Perez", image: "../assets/doctor1.webp", especialidad: "Cardiologo", rating: 1 },
     { id: 2, name: "Carlos Lopez", image: "../assets/doctor2.jpg", especialidad: "Dermatologo", rating: 3.8 },
     { id: 3, name: "Maria Gomez", image: "../assets/doctora1.jpg", especialidad: "Pediatra", rating: 4.2 },
   ];
@@ -21,7 +21,7 @@ const MedReview = () => {
     if (newComment.trim() !== "") {
       setComments((prevComments) => [
         ...prevComments,
-        { comment: newComment, user: "Karina", image: "../assets/gatos.jpg" },
+        { comment: newComment, user: "Carla Marquez", image: "../assets/gatos.jpg" },
       ]);
       setNewComment("");
     }

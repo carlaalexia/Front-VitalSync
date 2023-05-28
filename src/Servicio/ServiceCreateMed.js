@@ -15,7 +15,7 @@ async function ServiceCreateMed(values) {
       if (!res.ok) {
         AlertSweet(num = 8);
       } else {
-        AlertSweet(num = 7);
+        AlertSweet(num = 6);
       }
   
       // Aquí puedes realizar alguna acción adicional después de guardar exitosamente el usuario

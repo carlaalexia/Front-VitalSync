@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login";
 import CreateUser from "../Pages/Pacient/CreateUser";
-import Profile from "../Pages/Pacient/EditProfile";
+import EditProfile from "../Pages/Pacient/EditProfile";
 import ViewProfile from "../Pages/Pacient/EditProfile";
 import ViewMedAppoint from "../Pages/Appoints/ViewMedAppoint";
 import CreateMedAppoint from "../Pages/Appoints/CreateMedAppoint";
@@ -20,7 +20,7 @@ const Public = () => {
         <Route path="/CreateUser" element={<CreateUser />} />
         <Route path="/Admin" element={<Admin />} />
         <Route path="/Alist" element={<ListMed/>}/>
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Profile" element={<EditProfile />} />
         <Route path="/ViewProfile" element={<ViewProfile />} />
         <Route path="/Turnos" element={<ViewMedAppoint/>}/>
         <Route path="/CreateAppoint" element={<CreateMedAppoint />} />

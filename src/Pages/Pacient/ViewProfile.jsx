@@ -3,19 +3,25 @@ import {
   BsFillEnvelopeFill,
   BsFillTelephoneFill,
   BsFillPostcardHeartFill,
-  BsArrowLeft
+  BsArrowLeft,
 } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function ViewProfile() {
+  const location = useLocation();
+  const selectedImage = location.state && location.state.selectedImage;
+
   return (
     <div>
       <div className="flex items-center justify-start">
         <div className="col-span-full flex items-center justify-center gap-x-3 mt-2 flex-grow">
-          <img
-            src="./assets/gatos.jpg"
-            className="w-20 h-20 rounded-full mx-auto"
-          />
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              className="w-20 h-20 rounded-full mx-auto"
+              alt="Profile"
+            />
+          )}
         </div>
       </div>
 
@@ -67,7 +73,6 @@ function ViewProfile() {
           <Link to="/Profile">Editar</Link>
         </button>
       </div>
-
     </div>
   );
 }

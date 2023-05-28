@@ -1,9 +1,32 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function Profile() {
+function EditProfile() {
+  const navigate = useNavigate(); // Utiliza el gancho useNavigate para obtener el objeto de navegación
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
+
+  const handleSave = (event) => {
+    event.preventDefault();
+    // Realiza acciones de guardado aquí
+    // Navega a la ruta "/ViewProfile"
+    navigate("/ViewProfile", { state: { selectedImage: selectedImage } });
+  
+    // Verifica si se seleccionó una imagen
+    if (selectedImage) {
+      console.log("La imagen se ha guardado correctamente.");
+    } else {
+      console.log("No se ha seleccionado ninguna imagen.");
+    }
+  };
   return (
     <div>
-      <form>
+      <form id="profile-form" onSubmit={handleSave}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -16,21 +39,29 @@ function Profile() {
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                   <div className="text-center">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-300"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                        clip-rule="evenodd"
+                    {selectedImage ? (
+                      <img
+                        src={selectedImage}
+                        className="mx-auto h-12 w-12 text-gray-300"
+                        alt="Selected"
                       />
-                    </svg>
+                    ) : (
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-300"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    )}
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
                       <label
-                        for="file-upload"
+                        htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-cyan-950 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-cyan-900"
                       >
                         <span>Upload a file</span>
@@ -39,6 +70,7 @@ function Profile() {
                           name="file-upload"
                           type="file"
                           className="sr-only"
+                          onChange={handleImageChange}
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>
@@ -164,9 +196,11 @@ function Profile() {
           >
             <Link to="/ViewProfile">Cancelar</Link>
           </button>
+
           <button
             type="submit"
-            className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-none focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-2"
+            onClick={handleSave}
           >
             Guardar
           </button>
@@ -176,4 +210,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default EditProfile;
