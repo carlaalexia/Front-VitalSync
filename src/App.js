@@ -18,14 +18,13 @@ import ListMed from "./Pages/SuperAdmin/ListMed";
 import Nav from "./components/Nav";
 import NavUser from "./components/NavUser";
 import NavAdmin from "./components/NavAdmin";
+import NavPro from "./components/NavPro";
 import MedReview from "./Pages/MedRewiew";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [redirectPath, setRedirectPath] = useState("/homePage");
-
-  console.log("Rol usuario2:", userRole);
 
   useEffect(() => {
     if (userRole) {
@@ -67,9 +66,11 @@ function App() {
   if (isLoggedIn) {
     if (userRole === "ROL_ADMIN") {
       navigation = <NavAdmin onLogout={handleLogout} />;
-    } else if (userRole === "ROL_PROFESIONAL" || userRole === "ROL_PACIENTE") {
+    } else if (userRole === "ROL_PACIENTE") {
       navigation = <NavUser onLogout={handleLogout} />;
-    } else {
+    } else if (userRole === "ROL_PROFESIONAL") {
+      navigation = <NavPro onLogout={handleLogout} />;
+    }else {
       navigation = <Nav onLogout={handleLogout} />;
     }
   } else {

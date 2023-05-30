@@ -15,10 +15,28 @@ const HomePage = () => {
   const sectionRef = useRef(null);
   const socialMediaRef = useRef(null);
 
+  // Guarda la posición de desplazamiento antes de la actualización de la página
+  useEffect(() => {
+    window.sessionStorage.setItem(
+      "scrollPosition",
+      window.pageYOffset.toString()
+    );
+  }, []);
+
+  // Restaura la posición de desplazamiento después de la carga de la página
+  useEffect(() => {
+    const scrollPosition = parseInt(
+      window.sessionStorage.getItem("scrollPosition")
+    );
+    if (!isNaN(scrollPosition)) {
+      window.scrollTo(0, scrollPosition);
+    }
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const sectionPosition = sectionRef.current.getBoundingClientRect().top;
-      const socialMediaPosition = socialMediaRef.current.getBoundingClientRect().top;
+      const socialMediaPosition =
+        socialMediaRef.current.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
       if (!animationOneComplete && sectionPosition < windowHeight) {
@@ -34,8 +52,12 @@ const HomePage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [animationOneComplete, animationTwoComplete]);
 
-  const sectionClasses = `services-section ${animationOneComplete ? "slide-in" : ""}`;
-  const socialMediaClasses = `carousel-container ${animationTwoComplete ? "slide-in-right" : ""}`;
+  const sectionClasses = `services-section ${
+    animationOneComplete ? "slide-in" : ""
+  }`;
+  const socialMediaClasses = `carousel-container ${
+    animationTwoComplete ? "slide-in-right" : ""
+  }`;
 
   const carouselRef = useRef(null);
 

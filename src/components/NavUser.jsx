@@ -5,6 +5,8 @@ import "./nav.css";
 function NavUser() {
   const [showPersonMenu, setShowPersonMenu] = useState(false);
   const [showAppointMenu, setShowAppointMenu] = useState(false);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userRole") !== null);
 
   const handlePersonMenuClick = () => {
     setShowPersonMenu(!showPersonMenu); // Cambia el estado al hacer clic en "Turnos"
@@ -12,6 +14,13 @@ function NavUser() {
 
   const handleAppointMenuClick = () => {
     setShowAppointMenu(!showAppointMenu); // Cambia el estado al hacer clic en "Turnos"
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userRole");
+    setIsLoggedIn(false);
+    navigate("/homePage");
+    window.location.reload()
   };
 
   return (
@@ -65,8 +74,12 @@ function NavUser() {
             >
               Mi perfil
             </NavLink>
-            <button className="px-4 text-center hover:bg-gray-100 text-black text-sm">
-              Cerrar Sesión
+            <button
+              className="px-4 text-center hover:bg-gray-100 text-black text-sm"
+              onClick={handleLogout} 
+              // Agrega el evento onClick para cerrar sesión
+            >
+              Cerrar Sesion
             </button>
           </div>
         )}

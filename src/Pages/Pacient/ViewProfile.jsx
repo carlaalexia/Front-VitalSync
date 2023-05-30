@@ -6,10 +6,26 @@ import {
   BsArrowLeft,
 } from "react-icons/bs";
 import { useLocation, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import getPacienteById from "../../Servicio/ServicePacienteData";
+
 
 function ViewProfile() {
   const location = useLocation();
   const selectedImage = location.state && location.state.selectedImage;
+  const [paciente, setPaciente] = useState(null); // Estado local para almacenar los datos del paciente
+
+  useEffect(() => {
+    const obtenerPaciente = async () => {
+      const id = 123; // ID del paciente a consultar
+
+      const pacienteData = await getPacienteById(id);
+      console.log(pacienteData);
+      setPaciente(pacienteData);
+    };
+
+    obtenerPaciente();
+  }, []);
 
   return (
     <div>
