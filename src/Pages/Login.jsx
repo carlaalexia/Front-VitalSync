@@ -6,30 +6,43 @@ import {
   BsFillEyeSlashFill,
 } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../Servicio/ServiceInicioSesion";
+import { loginAndGetUserData } from "../Servicio/ServiceInicioSesion";
 import AlertSweet from "../alerts/AlertUser";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [clave, setClave] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleLogin(event) {
-    let num = 0;
     event.preventDefault();
+
     try {
-      const response = await login(email, password);
-      console.log(response);
-      if (response.message === "Email not exits") {
-        alert("Email no existe");
-      } else if (response.message === "Login Success") {
-        AlertSweet((num = 1));
+      const { loginResponse, userDataResponse } = await loginAndGetUserData(email, clave); 
+      
+      console.log(loginResponse);
+      console.log(userDataResponse);
+
+
+      if (userDataResponse.firstName !== undefined) {
+        // Inicio de sesión exitoso
+        const userRole = userDataResponse.roles[0].authority;
+        AlertSweet(1);
+        if (userRole === "ADMIN") {
+          navigate("/adminPage");
+        } else if (userRole === "PROFESIONAL") {
+          navigate("/profesionalPage");
+        } else if (userRole === "PACIENTE") {
+          navigate("/pacientePage");
+        }
         navigate("/homePage");
       } else {
-        AlertSweet((num = 3));
+        // Credenciales incorrectas u otro error
+        AlertSweet(3);
       }
     } catch (error) {
+      // Error en la solicitud de inicio de sesión
       alert(error);
     }
   }
@@ -81,13 +94,13 @@ function Login() {
 
             <div className="mt-2 relative">
               <input
-                id="password"
+                id="clave"
                 type={showPassword ? "text" : "password"}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-center sm:leading-7"
-                value={password}
+                value={clave}
                 onChange={(event) => {
-                  setPassword(event.target.value);
+                  setClave(event.target.value);
                 }}
               />
               <button
