@@ -36,28 +36,6 @@ const Admin = () => {
           <div className="flex items-center justify-between">
             <div className="flex space-x-2 items-center">
               <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-cyan-900"
-              >
-                Email
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="email"
-                type="email"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6 text-center"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-2 items-center">
-              <label
                 htmlFor="nombre"
                 className="block text-sm font-medium leading-6 text-cyan-900"
               >
@@ -92,6 +70,28 @@ const Admin = () => {
                 type="text"
                 className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6 text-center"
                 value={values.apellido}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex space-x-2 items-center">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-cyan-900"
+              >
+                Email
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="email"
+                type="email"
+                required
+                className="block w-full rounded-md border-0 py-1.5 text-cyan-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6 text-center"
+                value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />

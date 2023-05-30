@@ -23,6 +23,7 @@ import MedReview from "./Pages/MedRewiew";
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [navType, setNavType] = useState("Nav");
 
   useEffect(() => {
     if (userRole) {
@@ -31,35 +32,35 @@ function App() {
     }
   }, [userRole]);
 
-  function handleLogin(role) {
-    localStorage.setItem("userRole", role);
-    setUserRole(role);
-    setIsLoggedIn(true);
-  }
-
   function handleLogout() {
     localStorage.removeItem("userRole");
     setUserRole(null);
     setIsLoggedIn(false);
   }
 
+  function handleLogin(role) {
+    localStorage.setItem("userRole", role);
+    setUserRole(role);
+    setIsLoggedIn(true);
+  
+    if (role === "ROL_ADMIN") {
+      setNavType("NavAdmin");
+    }
+  }
+
   let navigation = null;
 
-  if (isLoggedIn) {
-    if (userRole === "ROL_PACIENTE") {
-      console.log("Mostrando NavUser"); 
-      navigation = <NavUser onLogout={handleLogout} />;
-    } else if (userRole === "ROL_ADMIN") {
-      console.log("Mostrando NavAdmin");
-      navigation = <NavAdmin onLogout={handleLogout} />;
-    } else {
-      console.log("Mostrando Nav");
-      navigation = <Nav onLogout={handleLogout} />;
-    }
+if (isLoggedIn) {
+  if (navType === "NavUser") {
+    navigation = <NavUser onLogout={handleLogout} />;
+  } else if (navType === "NavAdmin") {
+    navigation = <NavAdmin onLogout={handleLogout} />;
   } else {
-    console.log("Mostrando Nav");
-    navigation = <Nav onLogin={handleLogin} />;
+    navigation = <Nav onLogout={handleLogout} />;
   }
+} else {
+  navigation = <NavUser onLogin={handleLogin} />;
+}
 
   return (
     <Router>

@@ -50,7 +50,7 @@ function ViewProfile() {
               <BsFillTelephoneFill className="mr-2 h-5 w-5" /> Telefono
             </dt>
             <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              1160323634
+             
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -58,7 +58,7 @@ function ViewProfile() {
               <BsFillPostcardHeartFill className="mr-2 h-5 w-5" /> Obra social
             </dt>
             <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-              Medife
+              
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 "></div>
