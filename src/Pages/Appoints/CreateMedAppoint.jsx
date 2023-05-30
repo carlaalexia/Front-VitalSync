@@ -57,7 +57,7 @@ function CreateMedAppoint() {
                 <option value="">Seleccionar</option>
                 <option value="Cardiologia">Cardiologia</option>
                 <option value="Oculista">Oculista</option>
-                <option value="Ginelogia">Ginecologia</option>
+                <option value="Ginecologia">Ginecologia</option>
                 <option value="Pediatria">Pediatria</option>
                 <option value="Dermatología">Dermatologia</option>
                 <option value="Reumatologo">Reumatologia</option>
@@ -108,13 +108,15 @@ function CreateMedAppoint() {
           <table className="w-[630px] bg-teal-50 border border-gray-300 drop-shadow-md">
             <thead>
               <tr className="bg-cyan-600">
-                <th className="py-2 px-4 border-b">Nombre Completo</th>
+                <th className="py-2 px-4 border-b">Nombre</th>
+                <th className="py-2 px-4 border-b">Apellido</th>
               </tr>
             </thead>
             <tbody>
-              {medicos.map((nombreApellido, index) => (
+              {medicos.map((medico, index) => (
                 <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
-                  <td className="py-2 px-4 border-b text-center">{nombreApellido}</td>
+                  <td className="py-2 px-4 border-b text-center">{medico.nombre}</td>
+                  <td className="py-2 px-4 border-b text-center">{medico.apellido}</td>
                 </tr>
               ))}
             </tbody>

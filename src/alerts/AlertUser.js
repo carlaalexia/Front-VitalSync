@@ -36,8 +36,8 @@ function AlertSweet(num){
         break;
         case 6:
             swal({
-                title:"Hay Campos Obligatorios (skills)",
-                icon: "warning",
+                title:"Se guardo correctamente el profesional",
+                icon: "success",
                 buttons:"Aceptar"
               });
         break;
@@ -55,6 +55,24 @@ function AlertSweet(num){
                 buttons:"Aceptar"
               });
         break;
+        case 9:
+            swal({
+                title: "¿Estas seguro de eliminar a este profesional?",
+                text: "Una vez eliminado, se borraran todos sus datos",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((confirmed) => {
+                if (confirmed) {
+                  swal("Eliminado", {
+                    icon: "success",
+                  });
+                } else {
+                  swal("Que tenga un buen dia");
+                }
+              });
+         break;
         
         default: 
         swal({

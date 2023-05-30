@@ -9,7 +9,7 @@ async function ServiceCreateUser(values) {
       body: JSON.stringify(values),
     };
 
-    const res = await fetch("http://localhost:8080/vitalsync/paciente/create", requestInit)
+    const res = await fetch("http://localhost:8080/vitalsync/paciente/crear", requestInit)
     
 
     if (!res.ok) {

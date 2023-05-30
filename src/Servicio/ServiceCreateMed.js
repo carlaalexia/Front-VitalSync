@@ -10,12 +10,12 @@ async function ServiceCreateMed(values) {
         body: JSON.stringify(values),
       };
   
-      const res = await fetch("http://localhost:8080/vitalsync/profesional/create", requestInit);
+      const res = await fetch("http://localhost:8080/vitalsync/profesional/crear", requestInit);
   
       if (!res.ok) {
         AlertSweet(num = 8);
       } else {
-        AlertSweet(num = 7);
+        AlertSweet(num = 6);
       }
   
       // Aquí puedes realizar alguna acción adicional después de guardar exitosamente el usuario

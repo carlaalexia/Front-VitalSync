@@ -24,6 +24,7 @@ export async function loginAndGetUserData(email, clave) {
       userDataResponse: userData,
     };
   } catch (error) {
+    console.error("Error:", error); // Imprime el error en la consola
     throw error;
   }
 }
