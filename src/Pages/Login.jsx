@@ -19,24 +19,33 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { loginResponse, userDataResponse } = await loginAndGetUserData(email, clave); 
-      
-      console.log(loginResponse);
-      console.log(userDataResponse);
+      const { loginResponse, userDataResponse } = await loginAndGetUserData(
+        email,
+        clave
+      );
 
+      console.log("1: " + loginResponse);
+      console.log("2: " + userDataResponse);
 
       if (userDataResponse.firstName !== undefined) {
         // Inicio de sesión exitoso
         const userRole = userDataResponse.roles[0].authority;
-        AlertSweet(1);
-        if (userRole === "ADMIN") {
-          navigate("/adminPage");
-        } else if (userRole === "PROFESIONAL") {
-          navigate("/profesionalPage");
-        } else if (userRole === "PACIENTE") {
-          navigate("/pacientePage");
+
+        document.cookie = `SESSIONID=${userRole}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
+        localStorage.setItem("userRole", userRole);
+
+        // Imprimir la cookie
+        console.log("cookie: " + document.cookie);
+
+        if (userRole === "ROL_ADMIN") {
+          navigate("/homePage");
+        } else if (userRole === "ROL_PROFESIONAL") {
+          navigate("/homePage");
+        } else if (userRole === "ROL_PACIENTE") {
+          navigate("/homePage");
         }
-        navigate("/homePage");
+        navigate("/homePage", { replace: true });
+        window.location.reload()
       } else {
         // Credenciales incorrectas u otro error
         AlertSweet(3);
@@ -50,18 +59,18 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h3 className="block text-lg font-bold leading-6 mt-6 text-center">
+        <h3 className="block text-sm font-medium leading-4 mt-6 text-center">
           Inicia sesión en tu cuenta
         </h3>
       </div>
 
-      <div className="mt-14 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6">
           <div>
             <div className="flex items-center justify-between">
               <label
                 htmlFor="username"
-                className="block text-sm font-bold leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Usuario
               </label>
@@ -85,7 +94,7 @@ function Login() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-bold leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Contraseña
               </label>
@@ -128,7 +137,7 @@ function Login() {
           </div>
         </form>
 
-        <div className="text-sm mt-10 text-center">
+        <div className="text-sm mt-4 text-center">
           <a
             href="#"
             className="font-semibold text-cyan-950 hover:text-cyan-800"
