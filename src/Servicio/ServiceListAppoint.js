@@ -1,3 +1,5 @@
+//todo: hacer la conexion con el controller
+
 const listAppoint = async () => {
     try {
       const response = await fetch('http://localhost:8080/vitalsync/turnos/listar', {
