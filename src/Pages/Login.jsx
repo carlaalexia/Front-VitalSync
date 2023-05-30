@@ -6,29 +6,52 @@ import {
   BsFillEyeSlashFill,
 } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../Servicio/ServiceInicioSesion";
+import { loginAndGetUserData } from "../Servicio/ServiceInicioSesion";
 import AlertSweet from "../alerts/AlertUser";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [clave, setClave] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleLogin(event) {
-    let num = 0;
     event.preventDefault();
+
     try {
-      const response = await login(email, password);
-      if (response.data === "ROL_ADMIN") {
-        AlertSweet(1);
-        navigate("/homePage");
-      } else if (response.data === "Email not exists") {
-        alert("Email no existe");
+      const { loginResponse, userDataResponse } = await loginAndGetUserData(
+        email,
+        clave
+      );
+
+      console.log("1: " + loginResponse);
+      console.log("2: " + userDataResponse);
+
+      if (userDataResponse.firstName !== undefined) {
+        // Inicio de sesión exitoso
+        const userRole = userDataResponse.roles[0].authority;
+
+        document.cookie = `SESSIONID=${userRole}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
+        localStorage.setItem("userRole", userRole);
+
+        // Imprimir la cookie
+        console.log("cookie: " + document.cookie);
+
+        if (userRole === "ROL_ADMIN") {
+          navigate("/homePage");
+        } else if (userRole === "ROL_PROFESIONAL") {
+          navigate("/homePage");
+        } else if (userRole === "ROL_PACIENTE") {
+          navigate("/homePage");
+        }
+        navigate("/homePage", { replace: true });
+        window.location.reload()
       } else {
+        // Credenciales incorrectas u otro error
         AlertSweet(3);
       }
     } catch (error) {
+      // Error en la solicitud de inicio de sesión
       alert(error);
     }
   }
@@ -36,18 +59,18 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h3 className="block text-lg font-bold leading-6 mt-6 text-center">
+        <h3 className="block text-sm font-medium leading-4 mt-6 text-center">
           Inicia sesión en tu cuenta
         </h3>
       </div>
 
-      <div className="mt-14 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6">
           <div>
             <div className="flex items-center justify-between">
               <label
                 htmlFor="username"
-                className="block text-sm font-bold leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Usuario
               </label>
@@ -71,7 +94,7 @@ function Login() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-bold leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Contraseña
               </label>
@@ -80,13 +103,13 @@ function Login() {
 
             <div className="mt-2 relative">
               <input
-                id="password"
+                id="clave"
                 type={showPassword ? "text" : "password"}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-center sm:leading-7"
-                value={password}
+                value={clave}
                 onChange={(event) => {
-                  setPassword(event.target.value);
+                  setClave(event.target.value);
                 }}
               />
               <button
@@ -114,7 +137,7 @@ function Login() {
           </div>
         </form>
 
-        <div className="text-sm mt-10 text-center">
+        <div className="text-sm mt-4 text-center">
           <a
             href="#"
             className="font-semibold text-cyan-950 hover:text-cyan-800"

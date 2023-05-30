@@ -23,14 +23,22 @@ import MedReview from "./Pages/MedRewiew";
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [navType, setNavType] = useState("Nav");
+  const [redirectPath, setRedirectPath] = useState("/homePage");
+
+  console.log("Rol usuario2:", userRole);
 
   useEffect(() => {
     if (userRole) {
-      setIsLoggedIn(true);
-      console.log("Rol usuario:", userRole); // Imprimir el rol del usuario en la consola
     }
   }, [userRole]);
+
+  useEffect(() => {
+    const storedUserRole = localStorage.getItem("userRole");
+    if (storedUserRole) {
+      setUserRole(storedUserRole);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   function handleLogout() {
     localStorage.removeItem("userRole");
@@ -42,32 +50,38 @@ function App() {
     localStorage.setItem("userRole", role);
     setUserRole(role);
     setIsLoggedIn(true);
-  
+
     if (role === "ROL_ADMIN") {
-      setNavType("NavAdmin");
+      setRedirectPath("/homePage");
+    } else if (role === "ROL_PROFESIONAL") {
+      setRedirectPath("/homePage");
+    } else if (role === "ROL_PACIENTE") {
+      setRedirectPath("/homePage");
+    } else {
+      setRedirectPath("/homePage");
     }
   }
 
   let navigation = null;
 
-if (isLoggedIn) {
-  if (navType === "NavUser") {
-    navigation = <NavUser onLogout={handleLogout} />;
-  } else if (navType === "NavAdmin") {
-    navigation = <NavAdmin onLogout={handleLogout} />;
+  if (isLoggedIn) {
+    if (userRole === "ROL_ADMIN") {
+      navigation = <NavAdmin onLogout={handleLogout} />;
+    } else if (userRole === "ROL_PROFESIONAL" || userRole === "ROL_PACIENTE") {
+      navigation = <NavUser onLogout={handleLogout} />;
+    } else {
+      navigation = <Nav onLogout={handleLogout} />;
+    }
   } else {
-    navigation = <Nav onLogout={handleLogout} />;
+    navigation = <Nav onLogin={handleLogin} />;
   }
-} else {
-  navigation = <NavUser onLogin={handleLogin} />;
-}
 
   return (
     <Router>
       <div>
         {navigation}
         <Routes>
-          <Route path="/" element={<Navigate to="/homePage" replace />} />
+          <Route path="/" element={<Navigate to={redirectPath} replace />} />
           <Route path="/homePage/*" element={<Public />} />
           <Route path="/login" element={<Login />} />
           <Route path="/CreateUser" element={<CreateUser />} />

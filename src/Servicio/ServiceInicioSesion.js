@@ -1,26 +1,29 @@
 import axios from "axios";
+import AlertSweet from "../alerts/AlertUser";
 
-export async function login(email, password) {
+export async function loginAndGetUserData(email, clave) {
   try {
-    const response = await axios.post(
+    // Realizar la solicitud de inicio de sesión
+    const loginResponse = await axios.post(
       "http://localhost:8080/vitalsync/auth/login",
       {
         email: email,
-        clave: password,
+        clave: clave,
+      },
+      {
+        withCredentials: true, // Habilitar el envío de cookies
       }
     );
 
-    console.log("Respuesta:", response); // Imprime la respuesta completa en la consola
+    // Obtener la información del usuario de la respuesta de inicio de sesión
+    const userData = loginResponse.data;
 
-    if (response.status === 200) {
-      const role = response.data; // Obtiene el rol del usuario desde la respuesta
-      console.log("Rol del usuario:", role); // Imprime el rol del usuario en la consola
-      return { data: role }; // Devuelve un objeto con la propiedad 'data'
-    } else {
-      throw new Error("Error en la solicitud");
-    }
+    // Devolver tanto los datos de inicio de sesión como los datos del usuario
+    return {
+      loginResponse: loginResponse.data,
+      userDataResponse: userData,
+    };
   } catch (error) {
-    console.error("Error:", error); // Imprime el error en la consola
     throw error;
   }
 }
