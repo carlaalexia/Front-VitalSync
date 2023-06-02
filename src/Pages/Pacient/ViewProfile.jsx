@@ -20,7 +20,7 @@ function ViewProfile() {
       const id = 123; // ID del paciente a consultar
 
       const pacienteData = await getPacienteById(id);
-      console.log(pacienteData);
+
       setPaciente(pacienteData);
     };
 

@@ -24,9 +24,9 @@ function Login() {
         clave
       );
       if (userDataResponse.userName !== undefined) {
+
         // Inicio de sesión exitoso
 
-        alert("Bienvenido :" + userDataResponse.userName)
         const userRole = userDataResponse.roles[0].authority;
 
         document.cookie = `SESSIONID=${userRole}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
@@ -34,6 +34,7 @@ function Login() {
 
         // Imprimir la cookie
         console.log("cookie: " + document.cookie);
+        
 
         if (userRole === "ROL_ADMIN") {
           navigate("/homePage");
