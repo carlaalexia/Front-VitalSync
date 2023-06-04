@@ -1,46 +1,48 @@
 import obtenerEmailDeCookie from "../context/PacientCookie";
 
-const buscarPorEmail = async (email) => {
-  try {
-    const response = await fetch(`http://localhost:8080/vitalsync/buscar?email=${encodeURIComponent(email)}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
+const buscarPacientePorEmail = async (email) => {
+
+    const response = await fetch(
+      `http://localhost:8080/vitalsync/paciente/usuario/${encodeURIComponent(email)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
+
+
 
     if (response.ok) {
       const paciente = await response.json();
-      return paciente;
+      return { success: true, data: paciente }; // Devolver el paciente dentro de un objeto con success: true
     } else {
-      throw new Error('Error al buscar por correo electrónico');
+      return { success: false, message: "Error al buscar por correo electrónico" }; // Devolver un objeto con success: false y un mensaje de error
     }
-  } catch (error) {
-    console.log(error);
-    return { success: false, message: 'Error' };
-  }
+
 };
 
 const obtenerPacientePorEmail = async () => {
   const email = obtenerEmailDeCookie();
   if (!email) {
-    console.log('No se encontró la cookie o no contiene la información esperada');
-    return { success: false, message: 'Error' };
+    console.log(
+      "No se encontró la cookie o no contiene la información esperada"
+    );
+    return { success: false, message: "Error" };
   }
 
   try {
-    const response = await buscarPorEmail(email);
-    if (response.success) {
-      const paciente = response.data;
-      // Aquí puedes hacer lo que necesites con los datos del paciente
-      console.log(paciente);
+    const paciente = await buscarPacientePorEmail(email);
+    if (paciente.success) {
+      console.log("Data:" + paciente.data);
     } else {
-      console.log(response.message);
+      console.log("mensaje: " + paciente.message);
     }
-    return response;
+    return paciente;
   } catch (error) {
-    console.log(error);
-    return { success: false, message: 'Error' };
+    console.log("error 2:" + error);
+    return { success: false, message: "Error" };
   }
 };
 

@@ -7,7 +7,7 @@ import {
 } from "react-icons/bs";
 import { useLocation, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import getPacienteById from "../../Servicio/ServicePacienteData";
+import obtenerPacientePorEmail from "../../Servicio/ServicePacienteData";
 
 
 function ViewProfile() {
@@ -17,16 +17,18 @@ function ViewProfile() {
 
   useEffect(() => {
     const obtenerPaciente = async () => {
-      const id = 123; // ID del paciente a consultar
-
-      const pacienteData = await getPacienteById(id);
-
-      setPaciente(pacienteData);
+      const paciente = await obtenerPacientePorEmail();
+  
+      if (paciente.success) {
+        setPaciente(paciente.data);
+      } else {
+        console.log("????" + paciente.message);
+      }
     };
-
+  
     obtenerPaciente();
   }, []);
-
+  
   return (
     <div>
       <div className="flex items-center justify-start">
@@ -49,7 +51,7 @@ function ViewProfile() {
               Nombre completo
             </dt>
             <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Carla Marquez
+              {paciente && paciente.nombre}  {paciente && paciente.apellido}
             </dd>
           </div>
 
@@ -58,24 +60,20 @@ function ViewProfile() {
               <BsFillEnvelopeFill className="mr-2 h-5 w-5" /> Email
             </dt>
             <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              mcarlaalexia@gmail.com
+              { paciente && paciente.usuario.email}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
               <BsFillTelephoneFill className="mr-2 h-5 w-5" /> Telefono
             </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-             
-            </dd>
+            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"></dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
               <BsFillPostcardHeartFill className="mr-2 h-5 w-5" /> Obra social
             </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-              
-            </dd>
+            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 "></dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 "></div>
         </dl>

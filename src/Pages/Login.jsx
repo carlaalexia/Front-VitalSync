@@ -29,11 +29,12 @@ function Login() {
 
         const userRole = userDataResponse.roles[0].authority;
 
-        document.cookie = `SESSIONID=${userRole}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
+        document.cookie = `SESSIONID=${email}-${userRole}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
         localStorage.setItem("userRole", userRole);
 
         // Imprimir la cookie
         console.log("cookie: " + document.cookie);
+        console.log("mail: " + email)
         
 
         if (userRole === "ROL_ADMIN") {
