@@ -50,11 +50,11 @@ function App() {
     setUserRole(role);
     setIsLoggedIn(true);
 
-    if (role === "ROL_ADMIN") {
+    if (role === "ADMIN") {
       setRedirectPath("/homePage");
-    } else if (role === "ROL_PROFESIONAL") {
+    } else if (role === "PROFESIONAL") {
       setRedirectPath("/homePage");
-    } else if (role === "ROL_PACIENTE") {
+    } else if (role === "PACIENTE") {
       setRedirectPath("/homePage");
     } else {
       setRedirectPath("/homePage");
@@ -64,11 +64,11 @@ function App() {
   let navigation = null;
 
   if (isLoggedIn) {
-    if (userRole === "ROL_ADMIN") {
+    if (userRole === "ADMIN") {
       navigation = <NavAdmin onLogout={handleLogout} />;
-    } else if (userRole === "ROL_PACIENTE") {
+    } else if (userRole === "PACIENTE") {
       navigation = <NavUser onLogout={handleLogout} />;
-    } else if (userRole === "ROL_PROFESIONAL") {
+    } else if (userRole === "PROFESIONAL") {
       navigation = <NavPro onLogout={handleLogout} />;
     }else {
       navigation = <Nav onLogout={handleLogout} />;

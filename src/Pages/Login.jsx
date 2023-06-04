@@ -35,13 +35,14 @@ function Login() {
         // Imprimir la cookie
         console.log("cookie: " + document.cookie);
         console.log("mail: " + email)
+        console.log("ROLE " + userRole)
         
 
-        if (userRole === "ROL_ADMIN") {
+        if (userRole === "ADMIN") {
           navigate("/homePage");
-        } else if (userRole === "ROL_PROFESIONAL") {
+        } else if (userRole === "PROFESIONAL") {
           navigate("/homePage");
-        } else if (userRole === "ROL_PACIENTE") {
+        } else if (userRole === "PACIENTE") {
           navigate("/homePage");
         }
         navigate("/homePage", { replace: true });
