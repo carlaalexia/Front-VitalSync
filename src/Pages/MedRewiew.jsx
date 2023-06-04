@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import obtenerPacientePorEmail from "../Servicio/ServicePacienteData";
 
 const MedReview = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [paciente, setPaciente] = useState(null); // Estado local para almacenar los datos del paciente
+
+  useEffect(() => {
+    const obtenerPaciente = async () => {
+      const paciente = await obtenerPacientePorEmail();
+  
+      if (paciente.success) {
+        setPaciente(paciente.data);
+      } else {
+        console.log("????" + paciente.message);
+      }
+    };
+  
+    obtenerPaciente();
+  }, []);
 
   const doctors = [
     { id: 1, name: "Juan Perez", image: "../assets/doctor1.webp", especialidad: "Cardiologo", rating: 1 },
@@ -21,7 +37,7 @@ const MedReview = () => {
     if (newComment.trim() !== "") {
       setComments((prevComments) => [
         ...prevComments,
-        { comment: newComment, user: "Carla Marquez", image: "../assets/gatos.jpg" },
+        { comment: newComment, user: paciente.nombre + ' ' + paciente.apellido, image: "../assets/gatos.jpg" },
       ]);
       setNewComment("");
     }
