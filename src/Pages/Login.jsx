@@ -35,6 +35,7 @@ function Login() {
         // Imprimir la cookie
         console.log("cookie: " + document.cookie);
         console.log("mail: " + email)
+        console.log("ROLE " + userRole)
         
 
         if (userRole === "ADMIN") {
