@@ -1,28 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./nav.css";
-import obtenerPacientePorEmail from "../Servicio/ServicePacienteData";
+import Contexto from "../context/ContextPerson/Contexto";
 
 function NavUser() {
   const [showPersonMenu, setShowPersonMenu] = useState(false);
   const [showAppointMenu, setShowAppointMenu] = useState(false);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userRole") !== null);
-  const [paciente, setPaciente] = useState(null); // Estado local para almacenar los datos del paciente
-
-  useEffect(() => {
-    const obtenerPaciente = async () => {
-      const paciente = await obtenerPacientePorEmail();
-  
-      if (paciente.success) {
-        setPaciente(paciente.data);
-      } else {
-        console.log("????" + paciente.message);
-      }
-    };
-  
-    obtenerPaciente();
-  }, []);
+const {paciente, setPaciente} = useContext(Contexto);
 
   const handlePersonMenuClick = () => {
     setShowPersonMenu(!showPersonMenu); // Cambia el estado al hacer clic en "Turnos"

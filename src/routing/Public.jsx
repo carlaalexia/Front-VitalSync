@@ -10,6 +10,8 @@ import Admin from "../Pages/SuperAdmin/Admin";
 import HomePage from '../Pages/HomePage'
 import MedReview from "../Pages/MedRewiew";
 import ListMed from "../Pages/SuperAdmin/ListMed";
+import ProViewProfile from "../Pages/Doctor/ProViewProfile";
+import EditProfesional from "../Pages/Doctor/EditProfesional";
 
 const Public = () => {
   return (
@@ -25,6 +27,8 @@ const Public = () => {
         <Route path="/Turnos" element={<ViewMedAppoint/>}/>
         <Route path="/CreateAppoint" element={<CreateMedAppoint />} />
         <Route path="/Profesionales" element={<MedReview/>} />
+        <Route path="/ProViewProfile" element={<ProViewProfile/>} />
+        <Route path="/editarProfesional/:id" component={<EditProfesional/>} />
       </Routes>
     </>
   );
