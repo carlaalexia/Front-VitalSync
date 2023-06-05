@@ -1,12 +1,15 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./nav.css";
+import Contexto from "../context/ContextPerson/Contexto";
 
 function NavPro() {
   const [showPersonMenu, setShowPersonMenu] = useState(false);
   const [showAppointMenu, setShowAppointMenu] = useState(false);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userRole") !== null);
+
+  const {profesional, setProfesional} = useContext(Contexto);
 
   const handlePersonMenuClick = () => {
     setShowPersonMenu(!showPersonMenu); // Cambia el estado al hacer clic en "Turnos"
@@ -65,12 +68,13 @@ function NavPro() {
         className="font-bold text-white hover:text-teal-600 cursor-pointer relative mr-10" 
         onClick={handlePersonMenuClick} // Agrega el evento onClick
       >
-        Dr. Javier Rodriguez
+        {profesional && profesional.nombre + " "}
+        {profesional && profesional.apellido}
         {showPersonMenu && (
           <div className="absolute bg-white py-2 w-40 shadow-md z-10 rounded appoint-menu">
             <NavLink
               className="block px-4 py-2 hover:bg-gray-100 text-black no-underline"
-              to="/ViewProfile"
+              to="/ProViewProfile"
             >
               Mi perfil
             </NavLink>

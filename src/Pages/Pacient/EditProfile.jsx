@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import ServicioEditarPersona from "../../Servicio/ServicePacientEdit";
+import Contexto from "../../context/ContextPerson/Contexto";
 
-function EditProfile() {
-  const navigate = useNavigate(); // Utiliza el gancho useNavigate para obtener el objeto de navegación
+const EditProfile = () => {
+  const { paciente, setPaciente } = useContext(Contexto);
 
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
+  const [nombre, setNombre] = useState(paciente.nombre);
+  const [apellido, setApellido] = useState(paciente.apellido);
+  const [telefono, setTelefono] = useState(paciente.telefono);
+  const [edad, setEdad] = useState(paciente.edad);
+  const [coberturaMedica, setCoberturaMedica] = useState(
+    paciente.coberturaMedica
+  );
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -13,20 +24,68 @@ function EditProfile() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    // Realiza acciones de guardado aquí
-    // Navega a la ruta "/ViewProfile"
     navigate("/ViewProfile", { state: { selectedImage: selectedImage } });
-  
-    // Verifica si se seleccionó una imagen
     if (selectedImage) {
       console.log("La imagen se ha guardado correctamente.");
     } else {
       console.log("No se ha seleccionado ninguna imagen.");
     }
+    pruebaSubmit(coberturaMedica); // Pasar coberturaMedica como argumento
   };
+
+  const pruebaSubmit = async (coberturaMedica) => {
+    console.log("Entrando a pruebaSubmit");
+    const editarPersona = {
+      ...paciente,
+      id: paciente.id,
+      nombre: nombre,
+      apellido: apellido,
+      telefono: telefono,
+      edad: edad,
+      coberturaMedica: coberturaMedica, // Usar el valor actual del estado coberturaMedica
+    };
+    console.log("Datos:", editarPersona);
+    console.log("ID:", paciente.id);
+
+    try {
+      await ServicioEditarPersona(editarPersona, paciente.id);
+      
+      handleReset();
+      setPaciente(editarPersona);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    
+  };
+
+  const { handleBlur, handleChange, values, errors, touched, handleReset } =
+    useFormik({
+      initialValues: {
+        id: paciente.id,
+        nombre: "",
+        apellido: "",
+        telefono: "",
+        edad: "",
+        coberturaMedica: "",
+      },
+      handleChange: (e) => {
+        if (e.target.name === "coberturaMedica") {
+          setCoberturaMedica(e.target.value);
+        } else {
+          handleChange(e);
+        }
+      },
+    });
   return (
     <div>
-      <form id="profile-form" onSubmit={handleSave}>
+      <form
+        id="profile-form"
+        onSubmit={(event) => {
+          handleSave(event);
+          pruebaSubmit(event);
+        }}
+      >
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -95,15 +154,19 @@ function EditProfile() {
                   for="first-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Primer nombre
+                  Nombre
                 </label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
-                    autocomplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-gray-300 ring-1 ring-insetplaceholder:text-gray-400  sm:text-sm sm:leading-6 pl-2"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    value={nombre}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setNombre(e.target.value);
+                    }}
+                    onBlur={handleBlur}
+                    name="nombre"
                   />
                 </div>
               </div>
@@ -115,14 +178,17 @@ function EditProfile() {
                 >
                   Apellido
                 </label>
-                <div class="mt-2">
+                <div className="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
-                    autocomplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-             ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    value={apellido}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setApellido(e.target.value);
+                    }}
+                    onBlur={handleBlur}
+                    name="apellido"
                   />
                 </div>
               </div>
@@ -154,9 +220,15 @@ function EditProfile() {
                 </label>
                 <div className="mt-2">
                   <input
-                    id="telefono"
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    value={telefono}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setTelefono(e.target.value);
+                    }}
+                    onBlur={handleBlur}
                     name="telefono"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2 "
                   />
                 </div>
               </div>
@@ -170,19 +242,41 @@ function EditProfile() {
                 </label>
                 <div className="mt-2 mb-12">
                   <select
-                    id="country"
-                    name="country"
-                    autocomplete="country-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900  focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    name="coberturaMedica"
+                    value={coberturaMedica}
+                    onChange={(e) => setCoberturaMedica(e.target.value)}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900  focus:ring-indigo-600 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>Medife</option>
-                    <option>OSDE</option>
-                    <option>IOMA</option>
-                    <option>Sutter</option>
-                    <option>CoverMed</option>
-                    <option>Pami</option>
-                    <option>Galeno</option>
+                    <option value="Medife">Medife</option>
+                    <option value="OSDE">OSDE</option>
+                    <option value="IOMA">IOMA</option>
+                    <option value="Sutter">Sutter</option>
+                    <option value="CoverMed">CoverMed</option>
+                    <option value="Pami">Pami</option>
+                    <option value="Galeno">Galeno</option>
                   </select>
+                </div>
+              </div>
+
+              <div className="sm:col-span-3 w-1/2 ml-44">
+                <label
+                  for="telefono"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Edad
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    value={edad}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setEdad(e.target.value);
+                    }}
+                    onBlur={handleBlur}
+                    name="edad"
+                  />
                 </div>
               </div>
             </div>
@@ -208,6 +302,6 @@ function EditProfile() {
       </form>
     </div>
   );
-}
+};
 
 export default EditProfile;

@@ -6,6 +6,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import Provider from "./context/ContextPerson/Provider";
 import Public from "./routing/Public";
 import Login from "./Pages/Login";
 import CreateUser from "./Pages/Pacient/CreateUser";
@@ -20,6 +21,8 @@ import NavUser from "./components/NavUser";
 import NavAdmin from "./components/NavAdmin";
 import NavPro from "./components/NavPro";
 import MedReview from "./Pages/MedRewiew";
+import ProViewProfile from "./Pages/Doctor/ProViewProfile";
+import EditProfesional from "./Pages/Doctor/EditProfesional";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -78,6 +81,7 @@ function App() {
   }
 
   return (
+    <Provider>
     <Router>
       <div>
         {navigation}
@@ -93,9 +97,12 @@ function App() {
           <Route path="/Turnos" element={<ViewMedAppoint />} />
           <Route path="/PedirTurno" element={<CreateMedAppoint />} />
           <Route path="/Profesionales" element={<MedReview />} />
+          <Route path="/ProViewProfile" element={<ProViewProfile />} />
+          <Route path="/editarProfesional/:id" component={<EditProfesional/>} />
         </Routes>
       </div>
     </Router>
+    </Provider>
   );
 }
 

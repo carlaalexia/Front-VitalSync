@@ -4,30 +4,18 @@ import {
   BsFillTelephoneFill,
   BsFillPostcardHeartFill,
   BsArrowLeft,
+  BsInfoCircleFill
 } from "react-icons/bs";
 import { useLocation, Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import obtenerPacientePorEmail from "../../Servicio/ServicePacienteData";
+import React, { useState, useEffect, useContext } from "react";
+import Contexto from "../../context/ContextPerson/Contexto";
 
 
 function ViewProfile() {
   const location = useLocation();
   const selectedImage = location.state && location.state.selectedImage;
-  const [paciente, setPaciente] = useState(null); // Estado local para almacenar los datos del paciente
-
-  useEffect(() => {
-    const obtenerPaciente = async () => {
-      const paciente = await obtenerPacientePorEmail();
   
-      if (paciente.success) {
-        setPaciente(paciente.data);
-      } else {
-        console.log("????" + paciente.message);
-      }
-    };
-  
-    obtenerPaciente();
-  }, []);
+  const { paciente, setPaciente } = useContext(Contexto);
   
   return (
     <div>
@@ -67,13 +55,25 @@ function ViewProfile() {
             <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
               <BsFillTelephoneFill className="mr-2 h-5 w-5" /> Telefono
             </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"></dd>
+            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              {paciente && paciente.telefono}
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
+              <BsInfoCircleFill className="mr-2 h-5 w-5" /> Edad
+            </dt>
+            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              {paciente && paciente.edad}
+            </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
               <BsFillPostcardHeartFill className="mr-2 h-5 w-5" /> Obra social
             </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 "></dd>
+            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+            {paciente && paciente.coberturaMedica}
+            </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 "></div>
         </dl>

@@ -22,15 +22,15 @@ function AlertSweet(num){
         break;
         case 4:
             swal({
-                title:"Hay Campos Obligatorios (seniority)",
+                title:"Error",
                 icon: "warning",
                 buttons:"Aceptar"
               });
         break;
         case 5:
             swal({
-                title:"Hay Campos Obligatorios (linkedin)",
-                icon: "warning",
+                title:"Se edito exitosamente el paciente",
+                icon: "success",
                 buttons:"Aceptar"
               });
         break;

@@ -1,9 +1,9 @@
 import obtenerEmailDeCookie from "../context/PacientCookie";
 
-const buscarPacientePorEmail = async (email) => {
+const buscarProfesionalPorEmail = async (email) => {
 
     const response = await fetch(
-      `http://localhost:8080/vitalsync/paciente/usuario/${encodeURIComponent(email)}`,
+      `http://localhost:8080/vitalsync/profesional/usuario/${encodeURIComponent(email)}`,
       {
         method: "GET",
         headers: {
@@ -15,15 +15,15 @@ const buscarPacientePorEmail = async (email) => {
 
 
     if (response.ok) {
-      const paciente = await response.json();
-      return { success: true, data: paciente }; // Devolver el paciente dentro de un objeto con success: true
+      const profesional = await response.json();
+      return { success: true, data: profesional }; // Devolver el profesional dentro de un objeto con success: true
     } else {
       return { success: false, message: "Error al buscar por correo electrónico" }; // Devolver un objeto con success: false y un mensaje de error
     }
 
 };
 
- export const obtenerPacientePorEmail = async () => {
+ export const obtenerProfesionalPorEmail = async () => {
   const email = obtenerEmailDeCookie();
   if (!email) {
     console.log(
@@ -33,13 +33,13 @@ const buscarPacientePorEmail = async (email) => {
   }
 
   try {
-    const paciente = await buscarPacientePorEmail(email);
-    if (paciente.success) {
-      console.log("Data:" + paciente.data);
+    const profesional = await buscarProfesionalPorEmail(email);
+    if (profesional.success) {
+      console.log("Data:" + profesional.data);
     } else {
-      console.log("mensaje: " + paciente.message);
+      console.log("mensaje: " + profesional.message);
     }
-    return paciente;
+    return profesional;
   } catch (error) {
     console.log("error 2:" + error);
     return { success: false, message: "Error" };
@@ -47,4 +47,4 @@ const buscarPacientePorEmail = async (email) => {
 };
 
 
-export default obtenerPacientePorEmail;
+export default obtenerProfesionalPorEmail;
