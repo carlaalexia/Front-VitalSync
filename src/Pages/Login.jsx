@@ -37,11 +37,11 @@ function Login() {
         console.log("mail: " + email)
         
 
-        if (userRole === "ROL_ADMIN") {
+        if (userRole === "ADMIN") {
           navigate("/homePage");
-        } else if (userRole === "ROL_PROFESIONAL") {
+        } else if (userRole === "PROFESIONAL") {
           navigate("/homePage");
-        } else if (userRole === "ROL_PACIENTE") {
+        } else if (userRole === "PACIENTE") {
           navigate("/homePage");
         }
         navigate("/homePage", { replace: true });
