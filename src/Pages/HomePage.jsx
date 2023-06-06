@@ -85,6 +85,8 @@ const HomePage = () => {
     setHoveredIcon(null);
   };
 
+ 
+
   return (
     <div>
       <div className="relative">

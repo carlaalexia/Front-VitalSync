@@ -8,7 +8,7 @@ function NavUser() {
   const [showAppointMenu, setShowAppointMenu] = useState(false);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userRole") !== null);
-const {paciente, setPaciente} = useContext(Contexto);
+  const {paciente, setPaciente} = useContext(Contexto);
 
   const handlePersonMenuClick = () => {
     setShowPersonMenu(!showPersonMenu); // Cambia el estado al hacer clic en "Turnos"

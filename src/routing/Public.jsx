@@ -28,7 +28,8 @@ const Public = () => {
         <Route path="/CreateAppoint" element={<CreateMedAppoint />} />
         <Route path="/Profesionales" element={<MedReview/>} />
         <Route path="/ProViewProfile" element={<ProViewProfile/>} />
-        <Route path="/editarProfesional/:id" component={<EditProfesional/>} />
+        <Route path="/ProViewProfile/:id" element={<ProViewProfile />} />
+        <Route path="/editarProfesional/:id" element={<EditProfesional/>} />
       </Routes>
     </>
   );

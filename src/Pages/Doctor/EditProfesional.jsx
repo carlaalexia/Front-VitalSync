@@ -1,82 +1,131 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import ServicioEditarProfesional from "../../Servicio/ServiceProfesionalEdit";
+import obtenerProfesionalPorId from "../../Servicio/ServiceProfesionalId";
 import Contexto from "../../context/ContextPerson/Contexto";
 
 const EditProfesional = () => {
+  const { id } = useParams();
   const { profesional, setProfesional } = useContext(Contexto);
+  const [fotoSeleccionada, setFotoSeleciconada] = useState("");
 
-  const navigate = useNavigate();
-  
-  const [nombre, setNombre] = useState(profesional.nombre);
-  const [apellido, setApellido] = useState(profesional.apellido);
-  const [telefono, setTelefono] = useState(profesional.telefono);
+  const listaFotos = [
+    {
+      value:
+        "https://cdn.icon-icons.com/icons2/944/PNG/512/medical-29_icon-icons.com_73943.png",
+      label: "Foto 1",
+    },
+    {
+      value:
+        "https://www.universal-assistance.com/uploads/libreria/icon-med-2.svg",
+      label: "Foto 2",
+    },
+    {
+      value: "https://cdn-icons-png.flaticon.com/512/3304/3304567.png",
+      label: "Foto 3",
+    },
+    {
+      value:
+        "https://e7.pngegg.com/pngimages/65/330/png-clipart-physician-medicine-computer-icons-health-care-therapy-doctor-icon.png",
+      label: "Foto 4",
+    },
+    {
+      value:
+        "https://cdn.icon-icons.com/icons2/2122/PNG/512/doctor_medical_avatar_people_icon_131305.png",
+      label: "Foto 5",
+    },
+  ];
 
-
-  const pruebaSubmit = async () => {
-    console.log("Entrando a pruebaSubmit");
-    const editarPersona = {
-      ...profesional,
-      id: profesional.id,
-      nombre: nombre,
-      apellido: apellido,
-      telefono: telefono,
+  useEffect(() => {
+    const fetchProfesional = async () => {
+      try {
+        const response = await obtenerProfesionalPorId(id);
+        if (response.success) {
+          setProfesional(response.data);
+          formik.setValues({
+            nombre: response.data.nombre,
+            apellido: response.data.apellido,
+            telefono: response.data.telefono,
+            especialidad: response.data.especialidad,
+            ubicacion: response.data.ubicacion,
+            honorario: response.data.honorario,
+            matricula: response.data.matricula,
+            foto: response.data.foto,
+            estado: response.data.estado,
+          });
+        } else {
+          console.error(response.message);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     };
-    console.log("Datos:", editarPersona);
-    console.log("ID:", profesional.id);
 
-    try {
-      await ServicioEditarProfesional(editarPersona, profesional.id);
-      
-      handleReset();
-      setProfesional(editarPersona);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    fetchProfesional();
+  }, [id]);
 
-    
-  };
+  const formik = useFormik({
+    initialValues: {
+      nombre: "",
+      apellido: "",
+      telefono: "",
+      especialidad: "",
+      ubicacion: "",
+      honorario: "",
+      matricula: "",
+      foto: "",
+      estado: null,
+    },
+    onSubmit: async (values) => {
+      const datosEditar = {
+        nombre: values.nombre,
+        apellido: values.apellido,
+        telefono: values.telefono,
+        especialidad: values.especialidad,
+        ubicacion: values.ubicacion,
+        honorario: values.honorario,
+        matricula: values.matricula,
+        foto: values.foto,
+        estado: values.estado,
+      };
 
-  const { handleBlur, handleChange, values, errors, touched, handleReset } =
-    useFormik({
-      initialValues: {
-        id: profesional.id,
-        nombre: "",
-        apellido: "",
-        telefono: ""
-      },
-    });
+      try {
+        await ServicioEditarProfesional(datosEditar, id);
+        console.log("Profesional editado correctamente");
+        // Realiza cualquier otra acción necesaria después de editar el profesional
+      } catch (error) {
+        console.error("Error al editar el profesional:", error);
+        // Maneja el error de manera adecuada
+      }
+    },
+  });
   return (
-    <div>
-      <form onSubmit={pruebaSubmit}>
+    <div className="bg-[#b1e8df] bg-opacity-60 rounded-lg p-9">
+      <form onSubmit={formik.handleSubmit}>
         <div className="space-y-12">
-          
-
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-emerald-900 text-center">
-              Información Personal
+            <h2 className="text-lg font-bold leading-10 text-emerald-900 text-center">
+              Información del Profesional
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3 w-1/2 ml-28 ">
+              <div className="sm:col-span-3 w-1/2 ml-44 ">
                 <label
-                  for="first-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  htmlFor="first-name"
+                  className="block text-sm font-bold leading-6 text-gray-900"
                 >
                   Nombre
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
-                    value={nombre}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setNombre(e.target.value);
-                    }}
-                    onBlur={handleBlur}
+                    id="nombre"
                     name="nombre"
+                    type="text"
+                    value={formik.values.nombre}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
                   />
                 </div>
               </div>
@@ -84,38 +133,18 @@ const EditProfesional = () => {
               <div className="sm:col-span-3 w-1/2 ml-44">
                 <label
                   for="last-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-bold leading-6 text-gray-900"
                 >
                   Apellido
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
-                    value={apellido}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setApellido(e.target.value);
-                    }}
-                    onBlur={handleBlur}
+                    id="apellido"
                     name="apellido"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3 w-1/2 ml-28">
-                <label
-                  for="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
+                    type="text"
+                    value={formik.values.apellido}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
                   />
                 </div>
@@ -124,25 +153,107 @@ const EditProfesional = () => {
               <div className="sm:col-span-3 w-1/2 ml-44">
                 <label
                   for="telefono"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-bold leading-6 text-gray-900"
                 >
                   Telefono
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
-                    value={telefono}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setTelefono(e.target.value);
-                    }}
-                    onBlur={handleBlur}
+                    id="telefono"
                     name="telefono"
+                    type="text"
+                    value={formik.values.telefono}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
                   />
                 </div>
               </div>
 
+              <div className="sm:col-span-3 w-1/2 ml-44">
+                <label
+                  for="telefono"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Ubicacion
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="ubicacion"
+                    name="ubicacion"
+                    type="text"
+                    value={formik.values.ubicacion}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-3 w-1/2 ml-44">
+                <label
+                  for="telefono"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Matricula
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="matricula"
+                    name="matricula"
+                    type="text"
+                    value={formik.values.matricula}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-3 w-1/2 ml-44">
+                <label
+                  for="telefono"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Honorario
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="honorario"
+                    name="honorario"
+                    type="text"
+                    value={formik.values.honorario}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-3 w-1/2 ml-44">
+                <label
+                  for="telefono"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Foto
+                </label>
+                <div className="mt-2">
+                  <select
+                    id="foto"
+                    name="foto"
+                    value={formik.values.foto}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                  >
+                    <option value="">Selecciona una foto</option>
+                    {listaFotos.map((foto, index) => (
+                      <option key={index} value={foto.value}>
+                        {foto.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -152,7 +263,7 @@ const EditProfesional = () => {
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
-            <Link to="/ListMed">Cancelar</Link>
+            <Link to="/Alist">Cancelar</Link>
           </button>
 
           <button
