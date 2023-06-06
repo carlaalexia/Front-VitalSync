@@ -1,6 +1,5 @@
 const ServicioEditarProfesional = async (datos, profesionalId) => {
-    console.log('Datos a enviar al servidor:', datos);
-    console.log("id de la persona aaa " + profesionalId)
+    console.log('Datos a enviar al servidor pro:', datos);
     
     const requestInit = {
       method: "PUT",

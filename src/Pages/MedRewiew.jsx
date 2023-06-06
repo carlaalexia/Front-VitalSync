@@ -1,12 +1,30 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import obtenerPacientePorEmail from "../Servicio/ServicePacienteData";
+import listMed from "../Servicio/ServiceListMed";
+import Contexto from "../context/ContextPerson/Contexto";
 
 const MedReview = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [paciente, setPaciente] = useState(null); // Estado local para almacenar los datos del paciente
+  const [paciente, setPaciente] = useState(null);
+  const [medicos, setMedicos] = useState([]);
+  const {profesional, setProfesional} = useContext(Contexto);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await listMed();
+        setMedicos(data);
+        console.log(data); // Verifica si el estado se actualiza correctamente
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const obtenerPaciente = async () => {
@@ -58,23 +76,26 @@ const MedReview = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="w-1/2 mb-4">
-        <div className="bg-sky-900 bg-opacity-50 rounded-lg shadow p-4 mt-8">
+        <div className="bg-sky-900 bg-opacity-50 rounded-lg shadow p-4 mt-8"
+        style={{
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        }}>
           <h2 className="text-2xl font-bold mb-4">Conoce a nuestros profesionales</h2>
           <select
             className="border p-2 mb-4 rounded-lg"
             onChange={(e) => handleDoctorSelect(JSON.parse(e.target.value))}
           >
             <option value="">Seleccione</option>
-            {doctors.map((doctor) => (
+            {medicos.map((doctor) => (
               <option key={doctor.id} value={JSON.stringify(doctor)}>
-                {doctor.name}
+                {doctor.nombre} {doctor.apellido}
               </option>
             ))}
           </select>
           {selectedDoctor && (
             <div className="flex flex-col items-center">
               <img
-                src={selectedDoctor.image}
+                src={selectedDoctor.foto}
                 alt={selectedDoctor.name}
                 className="w-40 h-40 object-cover rounded-full mb-2"
               />
@@ -86,6 +107,7 @@ const MedReview = () => {
           )}
         </div>
       </div>
+
       <div className="w-3/4">
         <div className="bg-gray-200 rounded-lg shadow p-4">
           <h2 className="text-2xl font-bold mb-4">Comentarios de Usuarios</h2>

@@ -68,7 +68,8 @@ function NavPro() {
         className="font-bold text-white hover:text-teal-600 cursor-pointer relative mr-10" 
         onClick={handlePersonMenuClick} // Agrega el evento onClick
       >
-        {profesional && profesional.nombre + " "}
+        Dr/a   
+        {profesional && " "+ profesional.nombre + " "}
         {profesional && profesional.apellido}
         {showPersonMenu && (
           <div className="absolute bg-white py-2 w-40 shadow-md z-10 rounded appoint-menu">

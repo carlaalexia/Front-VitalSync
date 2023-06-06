@@ -1,18 +1,22 @@
 import "../../index.css";
 import { NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import listMed from "../../Servicio/ServiceListMed";
 import { deleteMedico } from "../../Servicio/ServiceDeleteMed";
 import { toggleMedicoEstado } from "../../Servicio/ServiceChangeStateMed";
+import Contexto from "../../context/ContextPerson/Contexto";
+
 
 const ListMed = () => {
   const [medicos, setMedicos] = useState([]);
+  const {profesional, setProfesional} = useContext(Contexto);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await listMed();
         setMedicos(data);
+        console.log(data); // Verifica si el estado se actualiza correctamente
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +84,9 @@ const ListMed = () => {
                   </button>
                 </td>
                 <td className="py-2 px-4 border-b">
-                  <NavLink to={`/editarProfesional/${medico.id}`}>Editar</NavLink>
+                  <NavLink to={`/editarProfesional/${medico.id}`}>
+                    Editar
+                  </NavLink>
                 </td>
               </tr>
             ))}

@@ -4,19 +4,18 @@ import {
   BsFillTelephoneFill,
   BsFillPostcardHeartFill,
   BsArrowLeft,
-  BsInfoCircleFill
+  BsInfoCircleFill,
 } from "react-icons/bs";
 import { useLocation, Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import Contexto from "../../context/ContextPerson/Contexto";
 
-
 function ViewProfile() {
   const location = useLocation();
   const selectedImage = location.state && location.state.selectedImage;
-  
+
   const { paciente, setPaciente } = useContext(Contexto);
-  
+
   return (
     <div>
       <div className="flex items-center justify-start">
@@ -32,54 +31,63 @@ function ViewProfile() {
       </div>
 
       <div className="mt-6 border-t border-gray-100 flex justify-center">
-        <dl className="divide-y divide-gray-100">
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
-              <BsFillPersonFill className="mr-2 h-5 w-5" />
-              Nombre completo
-            </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {paciente && paciente.nombre}  {paciente && paciente.apellido}
-            </dd>
-          </div>
+        <div
+          className="bg-[#c9ebe5] bg-opacity-60 rounded-lg p-9 mb-6"
+          style={{
+            paddingLeft: "20px",
+            paddingRight: "5px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <dl className="divide-y divide-gray-100">
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-base font-bold leading-6 text-emerald-900 flex text-center ml-3">
+                <BsFillPersonFill className="mr-2 h-5 w-5" />
+                Nombre completo
+              </dt>
+              <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {paciente && paciente.nombre} {paciente && paciente.apellido}
+              </dd>
+            </div>
 
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-emerald-900 flex place-items-center">
-              <BsFillEnvelopeFill className="mr-2 h-5 w-5" /> Email
-            </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              { paciente && paciente.usuario.email}
-            </dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
-              <BsFillTelephoneFill className="mr-2 h-5 w-5" /> Telefono
-            </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {paciente && paciente.telefono}
-            </dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
-              <BsInfoCircleFill className="mr-2 h-5 w-5" /> Edad
-            </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {paciente && paciente.edad}
-            </dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-emerald-900 flex items-center">
-              <BsFillPostcardHeartFill className="mr-2 h-5 w-5" /> Obra social
-            </dt>
-            <dd className="mt-1 ml-20 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-            {paciente && paciente.coberturaMedica}
-            </dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 "></div>
-        </dl>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-base font-bold leading-6 text-emerald-900 flex text-center ml-3">
+                <BsFillEnvelopeFill className="mr-2 h-5 w-5" /> Email
+              </dt>
+              <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {paciente && paciente.usuario.email}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-base font-bold leading-6 text-emerald-900 flex text-center ml-3">
+                <BsFillTelephoneFill className="mr-2 h-5 w-5" /> Telefono
+              </dt>
+              <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {paciente && paciente.telefono}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-base font-bold leading-6 text-emerald-900 flex text-center ml-3">
+                <BsInfoCircleFill className="mr-2 h-5 w-5" /> Edad
+              </dt>
+              <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {paciente && paciente.edad}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-base font-bold leading-6 text-emerald-900 flex text-center ml-3">
+                <BsFillPostcardHeartFill className="mr-2 h-5 w-5" /> Obra social
+              </dt>
+              <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+                {paciente && paciente.coberturaMedica}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 "></div>
+          </dl>
+        </div>
       </div>
 
-      <div className="mt-1 flex items-center justify-center gap-x-6 mr-5">
+      <div className="mt-1 mb-2 flex items-center justify-center gap-x-6 mr-5 ">
         <button
           type="submit"
           className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
