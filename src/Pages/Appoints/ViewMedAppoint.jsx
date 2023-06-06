@@ -81,11 +81,6 @@ function ViewMedAppoint() {
                 <td className="py-2 px-4 border-b">{turno.hora}</td>
                 <td className="py-2 px-4 border-b">{turno.doctor}</td>
                 <td className="py-2 px-4 border-b">{turno.especialidad}</td>
-                <td className="py-2 px-4 border-b ">
-                  <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded">
-                    Modificar turno
-                  </button>
-                </td>
                 <td className="py-2 px-4 border-b">
                   <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded" >
                     Cancelar turno
