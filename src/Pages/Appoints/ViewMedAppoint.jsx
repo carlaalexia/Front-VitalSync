@@ -1,61 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BsFillCalendarCheckFill, BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import listAppointPte from '../../Servicio/ServiceListAppointPte';
+import findMedId from '../../Servicio/ServiceFindMedId';
+import Contexto from '../../context/ContextPerson/Contexto';
 
 function ViewMedAppoint() {
 
+  const { paciente } = useContext(Contexto);
   
-    //todo: descomentar el codigo y eliminar el array turno cuando este hecha la conexion con el back;
-    //const [turnos, setTurnos] = useState([]);
+  const [turnos, setTurnos] = useState([]);
+  const [fetchCompleted, setFetchCompleted] = useState(false); // Nuevo estado
 
-  /*useEffect(() => {
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await listAppointPte(); //Necesito el id del pte 
+        const data = await listAppointPte(paciente.id); 
         setTurnos(data); 
+        setFetchCompleted(true); // Marcar la búsqueda como completada
+
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-}, []);
+  }, []);
 
-  const handleDeleteTurno = async (appointId) => {
-    try {
-      await deleteAppoint(appointId, setTurnos);
-    } catch (error) {
-      console.log(error);
-    }
-  };*/
+  useEffect(() => {
+    const fetchProfesionalData = async () => {
+      if (!fetchCompleted) return; // Si la búsqueda no está completada, no realizar más llamadas
 
-  const turnos = [
-    {
-      fecha: "2023-05-15",
-      hora: "14h",
-      doctor: "Dr. Juan Pérez",
-      especialidad: "Cardiología",
-    },
-    {
-      fecha: "2023-05-17",
-      hora: "17h",
-      doctor: "Dra. María Gómez",
-      especialidad: "Pediatría",
-    },
-    {
-      fecha: "2023-05-20",      
-      hora: "15h",
-      doctor: "Dr. Carlos López",
-      especialidad: "Dermatología",
-    },
-    {
-      fecha: "2023-05-20",
-      hora: "10h",
-      doctor: "Dr. Carlos López",
-      especialidad: "Dermatología",
-    },
-  ];
+      const updatedTurnos = [];
+      for (const turno of turnos) {
+        try {
+          const profesionalData = await findMedId(turno.id_profesional);
+          const updatedTurno = {
+            ...turno,
+            nombre: profesionalData.nombre,
+            especialidad: profesionalData.especialidad
+          };
+          updatedTurnos.push(updatedTurno);
+        } catch (error) {
+          console.log(error);
+          updatedTurnos.push(turno);
+        }
+      }
+
+      setTurnos(updatedTurnos);
+    };
+
+    fetchProfesionalData();
+  }, [turnos, fetchCompleted]); // <-- Arreglo de dependencias vacío
 
   return (
     <div className="mt-20 ml-72">
@@ -79,7 +76,7 @@ function ViewMedAppoint() {
               <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
                 <td className="py-2 px-4 border-b">{turno.fecha}</td>
                 <td className="py-2 px-4 border-b">{turno.hora}</td>
-                <td className="py-2 px-4 border-b">{turno.doctor}</td>
+                <td className="py-2 px-4 border-b">{turno.nombre}</td>
                 <td className="py-2 px-4 border-b">{turno.especialidad}</td>
                 <td className="py-2 px-4 border-b">
                   <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded" >
