@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { BsFillCalendarCheckFill, BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { listAppoint } from "../../Servicio/ServiceListAppoint";
+import listAppointPte from '../../Servicio/ServiceListAppointPte';
 
 function ViewMedAppoint() {
 
-  /*
-    todo: descomentar el codigo y eliminar el array turno cuando este hecha la conexion con el back;
-  const [turnos, setTurnos] = useState([]);
+  
+    //todo: descomentar el codigo y eliminar el array turno cuando este hecha la conexion con el back;
+    //const [turnos, setTurnos] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await listAppoint();
+        const data = await listAppointPte(); //Necesito el id del pte 
         setTurnos(data); 
       } catch (error) {
         console.log(error);

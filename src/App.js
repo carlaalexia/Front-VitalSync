@@ -24,7 +24,7 @@ import MedReview from "./Pages/MedRewiew";
 import ProViewProfile from "./Pages/Doctor/ProViewProfile";
 import EditProfesional from "./Pages/Doctor/EditProfesional";
 import ViewAppoint from "./Pages/Doctor/ViewAppoint";
-import HistorialMedico from "./Pages/Doctor/ViewHistory";
+import ViewHistory from "./Pages/Doctor/ViewHistory";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -98,7 +98,7 @@ function App() {
           <Route path="/ViewProfile" element={<ViewProfile />} />
           <Route path="/Turnos" element={<ViewMedAppoint />} />
           <Route path="/medTurnos" element={<ViewAppoint />} />
-          <Route path="/history" element={<HistorialMedico/>}/>
+          <Route path="/historial/:pacienteId" element={<ViewHistory/>}/>
           <Route path="/PedirTurno" element={<CreateMedAppoint />} />
           <Route path="/Profesionales" element={<MedReview />} />
           <Route path="/ProViewProfile" element={<ProViewProfile />} />

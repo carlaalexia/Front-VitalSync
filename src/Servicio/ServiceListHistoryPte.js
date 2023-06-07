@@ -1,9 +1,6 @@
-//todo: hacer la conexion con el controller
-// Hay que hacer la conexion por el id para que traiga los turnos de la persona
-
-const listAppoint = async (id) => {
+const listHistoryPte = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/vitalsync/turnos/listar/${id}`, {
+      const response = await fetch(`http://localhost:8080/vitalsync/paciente/historial/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -18,4 +15,4 @@ const listAppoint = async (id) => {
     }
   };
   
-  export default listAppoint;
+  export default listHistoryPte;
