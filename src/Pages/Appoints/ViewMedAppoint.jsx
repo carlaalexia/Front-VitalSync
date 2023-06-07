@@ -7,10 +7,10 @@ import Contexto from "../../context/ContextPerson/Contexto";
 
 function ViewMedAppoint() {
   const { paciente } = useContext(Contexto);
-
   const [turnos, setTurnos] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +31,7 @@ function ViewMedAppoint() {
   useEffect(() => {
     const fetchProfesionalData = async () => {
       if (!isFetching) return;
+      if (!isFetching) return;
 
       const updatedTurnos = [];
       for (const turno of turnos) {
@@ -39,6 +40,8 @@ function ViewMedAppoint() {
           const updatedTurno = {
             ...turno,
             nombre: profesionalData.nombre,
+            apellido: profesionalData.apellido,
+            especialidad: profesionalData.especialidad,
             apellido: profesionalData.apellido,
             especialidad: profesionalData.especialidad,
           };
@@ -50,6 +53,7 @@ function ViewMedAppoint() {
       }
 
       setTurnos(updatedTurnos);
+      setIsFetching(false);
       setIsFetching(false);
     };
 
