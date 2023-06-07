@@ -29,6 +29,18 @@ function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [redirectPath, setRedirectPath] = useState("/homePage");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [hideNavbar, setHideNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.pageYOffset;
+      setHideNavbar(scrollPosition > 100); // ajusta la posición de desplazamiento según tus necesidades
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (userRole) {
@@ -69,42 +81,50 @@ function App() {
 
   if (isLoggedIn) {
     if (userRole === "ADMIN") {
-      navigation = <NavAdmin onLogout={handleLogout} />;
+      navigation = <NavAdmin className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
     } else if (userRole === "PACIENTE") {
-      navigation = <NavUser onLogout={handleLogout} />;
+      navigation = <NavUser className={`navbar ${hideNavbar ? "hidden" : ""}`}onLogout={handleLogout} />;
     } else if (userRole === "PROFESIONAL") {
-      navigation = <NavPro onLogout={handleLogout} />;
-    }else {
-      navigation = <Nav onLogout={handleLogout} />;
+      navigation = <NavPro className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
+    } else {
+      navigation = <Nav className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
     }
   } else {
-    navigation = <Nav onLogin={handleLogin} />;
+    navigation = <Nav className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogin={handleLogin} />;
   }
 
   return (
     <Provider>
-    <Router>
-      <div>
-        {navigation}
-        <Routes>
-          <Route path="/" element={<Navigate to={redirectPath} replace />} />
-          <Route path="/homePage/*" element={<Public />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/CreateUser" element={<CreateUser />} />
-          <Route path="/Admin" element={<Admin />} />
-          <Route path="/Alist" element={<ListMed />} />
-          <Route path="/Profile" element={<EditProfile />} />
-          <Route path="/ViewProfile" element={<ViewProfile />} />
-          <Route path="/Turnos" element={<ViewMedAppoint />} />
-          <Route path="/PedirTurno" element={<CreateMedAppoint />} />
-          <Route path="/Profesionales" element={<MedReview />} />
-          <Route path="/ProViewProfile" element={<ProViewProfile />} />
-          <Route path="/ProViewProfile/:id" element={<ProViewProfile />} />
-          <Route path="/editarProfesional/:id" element={<EditProfesional/>} />
-          <Route path="/ControlReview" element={<MewReviewAdmin />} />
-        </Routes>
-      </div>
-    </Router>
+      <Router>
+        <div className="app-container">
+          {navigation}
+          <div className="content-container">
+            <Routes>
+              <Route
+                path="/"
+                element={<Navigate to={redirectPath} replace />}
+              />
+              <Route path="/homePage/*" element={<Public />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/CreateUser" element={<CreateUser />} />
+              <Route path="/Admin" element={<Admin />} />
+              <Route path="/Alist" element={<ListMed />} />
+              <Route path="/Profile" element={<EditProfile />} />
+              <Route path="/ViewProfile" element={<ViewProfile />} />
+              <Route path="/Turnos" element={<ViewMedAppoint />} />
+              <Route path="/PedirTurno" element={<CreateMedAppoint />} />
+              <Route path="/Profesionales" element={<MedReview />} />
+              <Route path="/ProViewProfile" element={<ProViewProfile />} />
+              <Route path="/ProViewProfile/:id" element={<ProViewProfile />} />
+              <Route
+                path="/editarProfesional/:id"
+                element={<EditProfesional />}
+              />
+              <Route path="/ControlReview" element={<MewReviewAdmin />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
     </Provider>
   );
 }

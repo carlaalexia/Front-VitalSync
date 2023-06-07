@@ -50,7 +50,7 @@ function AlertSweet(num){
         break;
         case 8:
             swal({
-                title:"Error al crear el usuario",
+                title:"Ya existe un usuario con el mail ingresado",
                 icon: "error",
                 buttons:"Aceptar"
               });

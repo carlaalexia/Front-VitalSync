@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./nav.css";
 
 function Nav() {
+  
   return (
     <div className="bg-zinc-700 flex justify-around items-center py-1 shadow-md">
       <img className="h-24 w-auto mb-2" src="./assets/Logo3.png" alt="VitalS" />
