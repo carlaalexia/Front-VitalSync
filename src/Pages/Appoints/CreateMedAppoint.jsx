@@ -1,5 +1,4 @@
 import { BsPersonSquare, BsFillHeartPulseFill } from "react-icons/bs";
-import Select from "react-select";
 import React, { useState, useContext, useEffect } from "react";
 import FindMed from "../../Servicio/ServiceFindMed";
 import ServiceCreateAppoint from "../../Servicio/ServicioScheduleAppoint";
