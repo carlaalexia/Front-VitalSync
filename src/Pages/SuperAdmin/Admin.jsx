@@ -117,29 +117,28 @@ const Admin = () => {
               >
                 <option value="">Seleccionar</option>
                 <option value="Cardiologia">Cardiologia</option>
+                <option value="Cirugía">Cirugía</option>
                 <option value="Clinica">Clinica Medica</option>
+                <option value="Dermatología">Dermatologia</option>
+                <option value="Gastroenterología">Gastroenterología</option>
                 <option value="Ginecologia">Ginecologia</option>
-                <option value="Obstetricia">Obstetricia</option>
+                <option value="Infectología">Infectología</option>
+                <option value="Inmunología">Inmunología</option>
+                <option value="Neurología">Neurología</option>
+                <option value="Neumología">Neumología</option>
+                <option value="Nefrología">Nefrología</option>
+                <option value="Oftalmología">Oftalmología</option>
+                <option value="Odontología">Odontología</option>
+                <option value="Oncología">Oncología</option>
                 <option value="Otorrinolaringologia">
                   Otorrinolaringologia
                 </option>
-                <option value="Pediatria">Pediatria</option>
-                <option value="Dermatología">Dermatologia</option>
-                <option value="Reumatologo">Reumatologia</option>
-                <option value="Cirugía">Cirugía</option>
+                <option value="Pediatría">Pediatría</option>
                 <option value="Psiquiatría">Psiquiatría</option>
-                <option value="Odontología">Odontología</option>
-                <option value="Traumatología">Traumatología</option>
-                <option value="Oftalmología">Oftalmología</option>
-                <option value="Inmunología">Inmunología</option>
                 <option value="Radiología">Radiología</option>
-                <option value="Gastroenterología">Gastroenterología</option>
-                <option value="Infectología">Infectología</option>
-                <option value="Nefrología">Nefrología</option>
-                <option value="Neurología">Neurología</option>
-                <option value="Neumología">Neumología</option>
+                <option value="Reumatología">Reumatologia</option>
+                <option value="Traumatología">Traumatología</option>
                 <option value="Urología">Urología</option>
-                <option value="Oncología">Oncología</option>
               </select>
             </div>
           </div>

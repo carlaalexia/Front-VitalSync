@@ -42,7 +42,7 @@ function NavAdmin() {
       <span className="text-white ml-1">|</span>{" "}
       {/* Barra entre los elementos */}
       <div
-        className="font-bold text-white hover:text-teal-600 cursor-pointer relative"
+        className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative"
         onClick={handleAppointMenuClick} // Agrega el evento onClick
       >
         Profesionales
@@ -73,7 +73,7 @@ function NavAdmin() {
       {/* Barra entre los elementos */}
       {/* PERFIL */}
       <div
-        className="font-bold text-white hover:text-teal-600 cursor-pointer relative mr-10"
+        className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative mr-10"
         onClick={handlePersonMenuClick} // Agrega el evento onClick
       >
         Admin

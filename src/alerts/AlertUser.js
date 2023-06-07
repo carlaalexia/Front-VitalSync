@@ -101,6 +101,20 @@ function AlertSweet(num){
                 buttons:"Aceptar"
               });
         break;
+        case 14:
+            swal({
+                title:"Se ha agendado su turno",
+                icon: "success",
+                buttons:"Aceptar"
+              });
+        break;
+        case 15:
+            swal({
+                title:"Error al guardar un turno",
+                icon: "warning",
+                buttons:"Aceptar"
+              });
+        break;
         default: 
         swal({
             title:"Hay campos obligatorio",

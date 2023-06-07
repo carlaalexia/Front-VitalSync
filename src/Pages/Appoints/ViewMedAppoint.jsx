@@ -7,15 +7,16 @@ import Contexto from "../../context/ContextPerson/Contexto";
 
 function ViewMedAppoint() {
   const { paciente } = useContext(Contexto);
-
   const [turnos, setTurnos] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await listAppointPte(paciente.id);
+        console.log("Turnos:", data); // Agregar console.log aquí
         setTurnos(data);
         setFetchCompleted(true);
         setIsFetching(true);
@@ -30,6 +31,7 @@ function ViewMedAppoint() {
   useEffect(() => {
     const fetchProfesionalData = async () => {
       if (!isFetching) return;
+      if (!isFetching) return;
 
       const updatedTurnos = [];
       for (const turno of turnos) {
@@ -38,6 +40,8 @@ function ViewMedAppoint() {
           const updatedTurno = {
             ...turno,
             nombre: profesionalData.nombre,
+            apellido: profesionalData.apellido,
+            especialidad: profesionalData.especialidad,
             apellido: profesionalData.apellido,
             especialidad: profesionalData.especialidad,
           };
@@ -50,37 +54,50 @@ function ViewMedAppoint() {
 
       setTurnos(updatedTurnos);
       setIsFetching(false);
+      setIsFetching(false);
     };
 
     fetchProfesionalData();
   }, [fetchCompleted, isFetching]);
 
   return (
-    <div className="mt-20 ml-72">
-      <div className="text-left">
-        <h2 className="mb-10 text-2xl font-bold leading-9 tracking-tight text-cyan-900 animate__animated animate__fadeInLeft">
+    <div className="flex flex-col items-center mt-8">
+      <div>
+        <h2 className="mb-10 text-3xl font-bold leading-9 tracking-tight text-cyan-900 animate__animated animate__fadeInLeft">
           Mis turnos
         </h2>
       </div>
       <div className="max-w-screen-lg mx-auto">
-        <table className="w-[900px] bg-teal-50 border border-gray-300 drop-shadow-md">
+        <table className="w-[900px] mb-8 bg-teal-50 border border-gray-300 drop-shadow-md">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b">Fecha</th>
-              <th className="py-2 px-4 border-b">Hora</th>
-              <th className="py-2 px-4 border-b">Doctor</th>
-              <th className="py-2 px-4 border-b">Especialidad</th>
+            <tr className="bg-[#25a1af]">
+              <th className="py-2 px-4 border-b border-r">Fecha</th>
+              <th className="py-2 px-4 border-b border-r">Hora</th>
+              <th className="py-2 px-4 border-b border-r">Doctor</th>
+              <th className="py-2 px-4 border-b border-r">Especialidad</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {turnos.map((turno, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
-                <td className="py-2 px-4 border-b">{turno.fecha}</td>
-                <td className="py-2 px-4 border-b">{turno.hora}</td>
-                <td className="py-2 px-4 border-b">{turno.nombre}</td>
-                <td className="py-2 px-4 border-b">{turno.especialidad}</td>
+              <tr
+                key={index}
+                className={index % 2 === 0 ? "bg-teal-50" : "bg-white"}
+              >
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.fecha}
+                </td>
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.hora}
+                </td>
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.nombre} {turno.apellido}
+                </td>
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.especialidad}
+                </td>
                 <td className="py-2 px-4 border-b">
-                  <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded" >
+                  <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded ml-10">
                     Cancelar turno
                   </button>
                 </td>
@@ -91,7 +108,6 @@ function ViewMedAppoint() {
       </div>
     </div>
   );
-  
 }
 
 export default ViewMedAppoint;

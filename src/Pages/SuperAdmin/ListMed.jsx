@@ -59,6 +59,7 @@ const ListMed = () => {
     })
   };
 
+  medicos.sort((a, b) => a.apellido.localeCompare(b.apellido));
   return (
     <div className="flex flex-col min-h-screen justify-center items-center px-1 py-12 lg:px-8 -mt-20">
       <div className="p-5 border bg-teal-50 mx-auto h-full rounded-xl drop-shadow-md">
@@ -68,10 +69,10 @@ const ListMed = () => {
         <table className="w-[630px] bg-gray-50 border border-gray-300 drop-shadow-md">
           <thead>
             <tr className="bg-gray-200">
-              <th className="py-2 px-4 border-b">Nombre</th>
-              <th className="py-2 px-4 border-b">Apellido</th>
-              <th className="py-2 px-4 border-b">Especialidad</th>
-              <th className="py-2 px-4 border-b">Estado</th>
+              <th className="py-2 px-4 border-b text-start">Apellido</th>
+              <th className="py-2 px-4 border-b text-start">Nombre</th>
+              <th className="py-2 px-4 border-b text-start">Especialidad</th>
+              <th className="py-2 px-4 border-b text-center">Estado</th>
               <th className="py-2 px-4 border-b"></th>
               <th className="py-2 px-4 border-b"></th>
             </tr>
@@ -79,13 +80,13 @@ const ListMed = () => {
           <tbody>
             {medicos.map((medico, index) => (
               <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                <td className="py-2 px-4 border-b text-center">
-                  {medico.nombre}
-                </td>
-                <td className="py-2 px-4 border-b text-center">
+                <td className="py-2 px-4 border-b text-start">
                   {medico.apellido}
                 </td>
-                <td className="py-2 px-4 border-b text-center">
+                <td className="py-2 px-4 border-b text-start">
+                  {medico.nombre}
+                </td>
+                <td className="py-2 px-4 border-b text-start">
                   {medico.especialidad}
                 </td>
                 <td className="py-2 px-4 border-b">

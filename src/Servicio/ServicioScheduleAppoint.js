@@ -22,9 +22,9 @@ async function ServiceCreateAppoint(values) {
     const res = await fetch(url, requestInit);
 
     if (!res.ok) {
-      AlertSweet((num = 8));
+      AlertSweet((num = 15));
     } else {
-      AlertSweet((num = 6));
+      AlertSweet((num = 14));
     }
 
     // Aquí puedes realizar alguna acción adicional después de guardar exitosamente el usuario

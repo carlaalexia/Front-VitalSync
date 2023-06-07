@@ -56,7 +56,7 @@ function ViewAppoint() {
   return (
     <div className="mt-20 ml-72 justify-center items-center">
       <div className="text-left">
-        <h2 className="mb-10 text-2xl font-bold leading-9 tracking-tight text-cyan-900 animate__animated animate__fadeInLeft">
+        <h2 className="mb-10 ml-40 text-2xl font-bold leading-9 tracking-tight text-cyan-900 animate_animated animate_fadeInLeft">
           Mis turnos
         </h2>
       </div>
