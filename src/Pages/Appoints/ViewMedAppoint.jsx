@@ -1,25 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { BsFillCalendarCheckFill, BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import listAppointPte from '../../Servicio/ServiceListAppointPte';
-import findMedId from '../../Servicio/ServiceFindMedId';
-import Contexto from '../../context/ContextPerson/Contexto';
+import listAppointPte from "../../Servicio/ServiceListAppointPte";
+import findMedId from "../../Servicio/ServiceFindMedId";
+import Contexto from "../../context/ContextPerson/Contexto";
 
 function ViewMedAppoint() {
-
   const { paciente } = useContext(Contexto);
-  
-  const [turnos, setTurnos] = useState([]);
-  const [fetchCompleted, setFetchCompleted] = useState(false); // Nuevo estado
 
+  const [turnos, setTurnos] = useState([]);
+  const [fetchCompleted, setFetchCompleted] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await listAppointPte(paciente.id); 
-        setTurnos(data); 
-        setFetchCompleted(true); // Marcar la búsqueda como completada
-
+        const data = await listAppointPte(paciente.id);
+        setTurnos(data);
+        setFetchCompleted(true);
+        setIsFetching(true);
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +29,7 @@ function ViewMedAppoint() {
 
   useEffect(() => {
     const fetchProfesionalData = async () => {
-      if (!fetchCompleted) return; // Si la búsqueda no está completada, no realizar más llamadas
+      if (!isFetching) return;
 
       const updatedTurnos = [];
       for (const turno of turnos) {
@@ -39,7 +38,8 @@ function ViewMedAppoint() {
           const updatedTurno = {
             ...turno,
             nombre: profesionalData.nombre,
-            especialidad: profesionalData.especialidad
+            apellido: profesionalData.apellido,
+            especialidad: profesionalData.especialidad,
           };
           updatedTurnos.push(updatedTurno);
         } catch (error) {
@@ -49,10 +49,11 @@ function ViewMedAppoint() {
       }
 
       setTurnos(updatedTurnos);
+      setIsFetching(false);
     };
 
     fetchProfesionalData();
-  }, [turnos, fetchCompleted]); // <-- Arreglo de dependencias vacío
+  }, [fetchCompleted, isFetching]);
 
   return (
     <div className="mt-20 ml-72">
