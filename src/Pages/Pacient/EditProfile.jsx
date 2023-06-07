@@ -13,6 +13,7 @@ const EditProfile = () => {
   const [apellido, setApellido] = useState(paciente.apellido);
   const [telefono, setTelefono] = useState(paciente.telefono);
   const [edad, setEdad] = useState(paciente.edad);
+  const [email, setEmail] = useState(paciente.usuario.email);
   const [coberturaMedica, setCoberturaMedica] = useState(
     paciente.coberturaMedica
   );
@@ -44,19 +45,17 @@ const EditProfile = () => {
       edad: edad,
       coberturaMedica: coberturaMedica, // Usar el valor actual del estado coberturaMedica
     };
-    console.log("Datos:", editarPersona);
-    console.log("ID:", paciente.id);
+    //console.log("Datos:", editarPersona);
+    //console.log("ID:", paciente.id);
 
     try {
       await ServicioEditarPersona(editarPersona, paciente.id);
-      
+
       handleReset();
       setPaciente(editarPersona);
     } catch (error) {
       console.error("Error:", error);
     }
-
-    
   };
 
   const { handleBlur, handleChange, values, errors, touched, handleReset } =
@@ -92,7 +91,7 @@ const EditProfile = () => {
               <div className="col-span-full">
                 <label
                   for="cover-photo"
-                  className="block text-sm font-medium leading-6 text-emerald-900 text-center"
+                  className="block text-sm font-bold leading-6 text-emerald-900 text-center"
                 >
                   Foto de perfil
                 </label>
@@ -144,15 +143,15 @@ const EditProfile = () => {
           </div>
 
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-emerald-900 text-center">
+            <h2 className="text-lg font-semibold leading-7 text-emerald-900 text-center">
               Información Personal
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3 w-1/2 ml-28 ">
+              <div className="sm:col-span-3 w-1/2 ml-48 ">
                 <label
                   for="first-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Nombre
                 </label>
@@ -174,7 +173,7 @@ const EditProfile = () => {
               <div className="sm:col-span-3 w-1/2 ml-44">
                 <label
                   for="last-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Apellido
                 </label>
@@ -193,20 +192,24 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-3 w-1/2 ml-28">
+              <div className="sm:col-span-3 w-1/2 ml-48">
                 <label
                   for="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Email
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
+                    type="text"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
+                    value={email}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setEmail(e.target.value);
+                    }}
+                    onBlur={handleBlur}
+                    name="email"
                   />
                 </div>
               </div>
@@ -214,7 +217,7 @@ const EditProfile = () => {
               <div className="sm:col-span-3 w-1/2 ml-44">
                 <label
                   for="telefono"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Telefono
                 </label>
@@ -233,10 +236,10 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-3 ml-28 ">
+              <div className="sm:col-span-3 ml-48 ">
                 <label
                   for="country"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Obra Social
                 </label>
@@ -245,8 +248,11 @@ const EditProfile = () => {
                     name="coberturaMedica"
                     value={coberturaMedica}
                     onChange={(e) => setCoberturaMedica(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900  focus:ring-indigo-600 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 focus:ring-indigo-600 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
+                    <option className="bg-gray-300" value="" disabled={coberturaMedica !== ""}>
+                      Seleccione
+                    </option>
                     <option value="Medife">Medife</option>
                     <option value="OSDE">OSDE</option>
                     <option value="IOMA">IOMA</option>
@@ -261,7 +267,7 @@ const EditProfile = () => {
               <div className="sm:col-span-3 w-1/2 ml-44">
                 <label
                   for="telefono"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-semibold leading-6 text-gray-900"
                 >
                   Edad
                 </label>

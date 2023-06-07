@@ -1,5 +1,4 @@
 const ServicioEditarProfesional = async (datos, profesionalId) => {
-    console.log('Datos a enviar al servidor pro:', datos);
     
     const requestInit = {
       method: "PUT",
@@ -12,7 +11,7 @@ const ServicioEditarProfesional = async (datos, profesionalId) => {
       if (!response.ok) {
         throw new Error("Algo salió mal");
       } else {
-        console.log("ola")
+        //console.log("ola")
       }
     } catch (error) {
       console.error("Error:", error);

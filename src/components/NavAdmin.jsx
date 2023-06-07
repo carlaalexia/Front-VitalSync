@@ -21,8 +21,12 @@ function NavAdmin() {
   const handleLogout = () => {
     localStorage.removeItem("userRole");
     setIsLoggedIn(false);
-    navigate("/homePage");
-    window.location.reload();
+
+    // Agrega un retraso de 2 segundos antes de redirigir
+    setTimeout(() => {
+      navigate("/homePage");
+      window.location.reload();
+    }, 2000);
   };
 
   return (
@@ -58,7 +62,7 @@ function NavAdmin() {
             </NavLink>
             <NavLink
               className="block px-4 py-2 hover:bg-gray-100 text-black no-underline"
-              to="/Profesionales"
+              to="/ControlReview"
             >
               Comentarios
             </NavLink>

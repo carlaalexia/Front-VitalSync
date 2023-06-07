@@ -38,8 +38,8 @@ const CreateUser = () =>{
           <form className="space-y-6" onSubmit={pruebaSubmit} autoComplete="off">
           <div>
                 <div className="flex items-center justify-between"> 
-                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-cyan-900">
-                    Ingresa tu nombre
+                    <label htmlFor="email" className="block text-sm font-semibold leading-6 text-cyan-900">
+                    Ingresa su nombre
                     </label> 
                     <BsFillPersonFill/>
                 </div>
@@ -57,8 +57,8 @@ const CreateUser = () =>{
             </div>
             <div>
                 <div className="flex items-center justify-between"> 
-                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-cyan-900">
-                    Ingresa tu apellido
+                    <label htmlFor="email" className="block text-sm font-semibold leading-6 text-cyan-900">
+                    Ingresa su apellido
                     </label> 
                     <BsFillPersonFill/>
                 </div>
@@ -76,7 +76,7 @@ const CreateUser = () =>{
             </div>
             <div>
                 <div className="flex items-center justify-between"> 
-                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-cyan-900">
+                    <label htmlFor="email" className="block text-sm font-semibold leading-6 text-cyan-900">
                     Ingresa tu email
                     </label> 
                     <BsFillEnvelopeFill/>
@@ -97,7 +97,7 @@ const CreateUser = () =>{
             <div>
               <div className="flex items-center justify-between">
                 
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-cyan-900">
+                <label htmlFor="password" className="block text-sm font-semibold leading-6 text-cyan-900">
                   Ingresa una contraseña
                 </label>
                 <BsFillLockFill/>

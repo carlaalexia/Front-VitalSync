@@ -29,7 +29,7 @@ function AlertSweet(num){
         break;
         case 5:
             swal({
-                title:"Se edito exitosamente el paciente",
+                title:"Se edito exitosamente",
                 icon: "success",
                 buttons:"Aceptar"
               });
@@ -73,7 +73,34 @@ function AlertSweet(num){
                 }
               });
          break;
-        
+         case 10:
+            swal({
+                title:"Perfecto!",
+                icon: "success",
+                buttons:"Aceptar"
+              });
+        break;
+        case 11:
+            swal({
+                title:"Error!",
+                icon: "warning",
+                buttons:"Aceptar"
+              });
+        break;
+        case 12:
+            swal({
+                title:"Perfecto!",
+                icon: "success",
+                buttons:"Aceptar"
+              });
+        break;
+        case 13:
+            swal({
+                title:"Comentario eliminado",
+                icon: "success",
+                buttons:"Aceptar"
+              });
+        break;
         default: 
         swal({
             title:"Hay campos obligatorio",

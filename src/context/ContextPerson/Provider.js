@@ -16,7 +16,7 @@ const Provider = ({ children }) => {
       if (paciente.success) {
         setPaciente(paciente.data);
       } else {
-        console.log("????" + paciente.message);
+      //  console.log("????" + paciente.message);
       }
     };
   
@@ -30,7 +30,7 @@ const Provider = ({ children }) => {
       if (profesional.success) {
         setProfesional(profesional.data);
       } else {
-        console.log("????" + profesional.message);
+      //console.log("????" + profesional.message);
       }
     };
   

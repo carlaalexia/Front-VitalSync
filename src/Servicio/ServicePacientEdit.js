@@ -1,7 +1,5 @@
 const ServicioEditarPersona = async (datos, pacienteId) => {
-  console.log('Datos a enviar al servidor:', datos);
-  console.log("id de la persona aaa " + pacienteId)
-  
+
   const requestInit = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -13,7 +11,7 @@ const ServicioEditarPersona = async (datos, pacienteId) => {
     if (!response.ok) {
       throw new Error("Algo salió mal");
     } else {
-      console.log("ola")
+     // console.log("ola")
     }
   } catch (error) {
     console.error("Error:", error);

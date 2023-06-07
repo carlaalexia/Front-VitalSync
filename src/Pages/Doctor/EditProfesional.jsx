@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import ServicioEditarProfesional from "../../Servicio/ServiceProfesionalEdit";
 import obtenerProfesionalPorId from "../../Servicio/ServiceProfesionalId";
 import Contexto from "../../context/ContextPerson/Contexto";
 
 const EditProfesional = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { profesional, setProfesional } = useContext(Contexto);
   const [fotoSeleccionada, setFotoSeleciconada] = useState("");
@@ -92,7 +93,7 @@ const EditProfesional = () => {
 
       try {
         await ServicioEditarProfesional(datosEditar, id);
-        console.log("Profesional editado correctamente");
+         navigate("/Alist");
         // Realiza cualquier otra acción necesaria después de editar el profesional
       } catch (error) {
         console.error("Error al editar el profesional:", error);
@@ -245,8 +246,11 @@ const EditProfesional = () => {
                     onBlur={formik.handleBlur}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
                   >
-                    <option value="">Selecciona una foto</option>
+                    <option className="bg-gray-300" value="" disabled={formik.values.foto !== ""}>
+                      Seleccione
+                    </option>
                     {listaFotos.map((foto, index) => (
+                      
                       <option key={index} value={foto.value}>
                         {foto.label}
                       </option>

@@ -6,7 +6,7 @@ const obtenerEmailDeCookie = () => {
     if (cookie.startsWith('SESSIONID=')) {
       const cookieValue = cookie.split('=')[1];
       const userName = cookieValue.split('-')[0]; // Obtener el correo electrónico en lugar del rol
-      console.log("Correo electrónico obtenido de la cookie:", userName);
+     // console.log("Correo electrónico obtenido de la cookie:", userName);
       return userName;
     }
   }

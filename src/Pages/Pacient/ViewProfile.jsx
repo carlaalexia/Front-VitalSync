@@ -6,15 +6,63 @@ import {
   BsArrowLeft,
   BsInfoCircleFill,
 } from "react-icons/bs";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import Contexto from "../../context/ContextPerson/Contexto";
+import deletePaciente from "../../Servicio/ServiceDeletePacient";
+import Swal from "sweetalert2";
 
 function ViewProfile() {
   const location = useLocation();
   const selectedImage = location.state && location.state.selectedImage;
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("userRole") !== null
+  );
 
+  const navigate = useNavigate();
   const { paciente, setPaciente } = useContext(Contexto);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userRole");
+    setIsLoggedIn(false);
+    navigate("/homePage");
+    window.location.reload();
+  };
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "¿Seguro que desea eliminar la cuenta?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Llamar a la función de eliminación del paciente
+        deletePaciente(paciente.id)
+          .then(() => {
+            Swal.fire({
+              title: "Eliminado",
+              text: "El paciente ha sido eliminado exitosamente",
+              icon: "success",
+            });
+            setTimeout(() => {
+              handleLogout(); // Cerrar sesión después de eliminar
+            }, 2000);
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Error",
+              text: "Ocurrió un error al eliminar al paciente",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
 
   return (
     <div>
@@ -87,13 +135,24 @@ function ViewProfile() {
         </div>
       </div>
 
-      <div className="mt-1 mb-2 flex items-center justify-center gap-x-6 mr-5 ">
-        <button
-          type="submit"
-          className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          <Link to="/Profile">Editar</Link>
-        </button>
+      <div className="flex items-center justify-center gap-x-32 mr-5 mb-3">
+        <div>
+          <button
+            type="submit"
+            className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <Link to="/Profile"> Editar </Link>
+          </button>
+        </div>
+        <div>
+          <button
+            type="submit"
+            className="rounded-md bg-red-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={handleDelete}
+          >
+            Eliminar
+          </button>
+        </div>
       </div>
     </div>
   );

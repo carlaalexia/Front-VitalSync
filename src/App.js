@@ -23,6 +23,7 @@ import NavPro from "./components/NavPro";
 import MedReview from "./Pages/MedRewiew";
 import ProViewProfile from "./Pages/Doctor/ProViewProfile";
 import EditProfesional from "./Pages/Doctor/EditProfesional";
+import MewReviewAdmin from "./Pages/SuperAdmin/MewReviewAdmin";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -100,6 +101,7 @@ function App() {
           <Route path="/ProViewProfile" element={<ProViewProfile />} />
           <Route path="/ProViewProfile/:id" element={<ProViewProfile />} />
           <Route path="/editarProfesional/:id" element={<EditProfesional/>} />
+          <Route path="/ControlReview" element={<MewReviewAdmin />} />
         </Routes>
       </div>
     </Router>

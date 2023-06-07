@@ -26,16 +26,14 @@ const buscarProfesionalPorEmail = async (email) => {
  export const obtenerProfesionalPorEmail = async () => {
   const email = obtenerEmailDeCookie();
   if (!email) {
-    console.log(
-      "No se encontró la cookie o no contiene la información esperada"
-    );
+    //console.log("No se encontró la cookie o no contiene la información esperada");
     return { success: false, message: "Error" };
   }
 
   try {
     const profesional = await buscarProfesionalPorEmail(email);
     if (profesional.success) {
-      console.log("Data:" + profesional.data);
+
     } else {
       console.log("mensaje: " + profesional.message);
     }

@@ -60,7 +60,7 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-19 lg:px-9">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h3 className="block text-sm font-medium leading-4 mt-6 text-center">
+        <h3 className="block text-lg font-medium leading-4 mt-6 text-center">
           Inicia sesión en tu cuenta
         </h3>
       </div>
@@ -71,7 +71,7 @@ function Login() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-base font-medium leading-6 text-gray-900"
               >
                 Usuario
               </label>
@@ -95,7 +95,7 @@ function Login() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-base font-medium leading-6 text-gray-900"
               >
                 Contraseña
               </label>

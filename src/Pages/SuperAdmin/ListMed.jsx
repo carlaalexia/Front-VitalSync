@@ -1,15 +1,17 @@
 import "../../index.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import listMed from "../../Servicio/ServiceListMed";
 import { deleteMedico } from "../../Servicio/ServiceDeleteMed";
 import { toggleMedicoEstado } from "../../Servicio/ServiceChangeStateMed";
 import Contexto from "../../context/ContextPerson/Contexto";
+import Swal from "sweetalert2";
 
 
 const ListMed = () => {
   const [medicos, setMedicos] = useState([]);
   const {profesional, setProfesional} = useContext(Contexto);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,11 +36,27 @@ const ListMed = () => {
   };
 
   const handleDeleteMedico = async (medicoId) => {
-    try {
-      await deleteMedico(medicoId, setMedicos);
-    } catch (error) {
-      console.log(error);
-    }
+    Swal.fire({
+      title:"Seguro que desea eliminar a este profesional?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+    }).then((result) =>{
+      if (result.isConfirmed) {
+        //llama a la funcion de eliminar
+        deleteMedico(medicoId, setMedicos)
+        .then(()=> {
+          Swal.fire ({
+            title: "Eliminado",
+            text: "El profesional ha sido eliminado",
+            icon: "success",
+          })
+        })
+      }
+    })
   };
 
   return (

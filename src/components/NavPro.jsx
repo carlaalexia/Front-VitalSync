@@ -22,8 +22,12 @@ function NavPro() {
   const handleLogout = () => {
     localStorage.removeItem("userRole");
     setIsLoggedIn(false);
-    navigate("/homePage");
-    window.location.reload()
+
+    // Agrega un retraso de 2 segundos antes de redirigir
+    setTimeout(() => {
+      navigate("/homePage");
+      window.location.reload();
+    }, 2000);
   };
 
   return (

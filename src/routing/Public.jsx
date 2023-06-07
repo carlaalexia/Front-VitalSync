@@ -12,6 +12,7 @@ import MedReview from "../Pages/MedRewiew";
 import ListMed from "../Pages/SuperAdmin/ListMed";
 import ProViewProfile from "../Pages/Doctor/ProViewProfile";
 import EditProfesional from "../Pages/Doctor/EditProfesional";
+import MewReviewAdmin from "../Pages/SuperAdmin/MewReviewAdmin";
 
 const Public = () => {
   return (
@@ -30,6 +31,7 @@ const Public = () => {
         <Route path="/ProViewProfile" element={<ProViewProfile/>} />
         <Route path="/ProViewProfile/:id" element={<ProViewProfile />} />
         <Route path="/editarProfesional/:id" element={<EditProfesional/>} />
+        <Route path="/ControlReview" element={<MewReviewAdmin />} />
       </Routes>
     </>
   );

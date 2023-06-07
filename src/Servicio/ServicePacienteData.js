@@ -26,22 +26,19 @@ const buscarPacientePorEmail = async (email) => {
  export const obtenerPacientePorEmail = async () => {
   const email = obtenerEmailDeCookie();
   if (!email) {
-    console.log(
-      "No se encontró la cookie o no contiene la información esperada"
-    );
+    //console.log("No se encontró la cookie o no contiene la información esperada");
     return { success: false, message: "Error" };
   }
 
   try {
     const paciente = await buscarPacientePorEmail(email);
     if (paciente.success) {
-      console.log("Data:" + paciente.data);
+     // console.log("Data:" + paciente.data);
     } else {
       console.log("mensaje: " + paciente.message);
     }
     return paciente;
   } catch (error) {
-    console.log("error 2:" + error);
     return { success: false, message: "Error" };
   }
 };
