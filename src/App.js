@@ -24,6 +24,8 @@ import MedReview from "./Pages/MedRewiew";
 import ProViewProfile from "./Pages/Doctor/ProViewProfile";
 import EditProfesional from "./Pages/Doctor/EditProfesional";
 import MewReviewAdmin from "./Pages/SuperAdmin/MewReviewAdmin";
+import ViewAppoint from "./Pages/Doctor/ViewAppoint";
+import ViewHistory from "./Pages/Doctor/ViewHistory";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -81,16 +83,41 @@ function App() {
 
   if (isLoggedIn) {
     if (userRole === "ADMIN") {
-      navigation = <NavAdmin className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
+      navigation = (
+        <NavAdmin
+          className={`navbar ${hideNavbar ? "hidden" : ""}`}
+          onLogout={handleLogout}
+        />
+      );
     } else if (userRole === "PACIENTE") {
-      navigation = <NavUser className={`navbar ${hideNavbar ? "hidden" : ""}`}onLogout={handleLogout} />;
+      navigation = (
+        <NavUser
+          className={`navbar ${hideNavbar ? "hidden" : ""}`}
+          onLogout={handleLogout}
+        />
+      );
     } else if (userRole === "PROFESIONAL") {
-      navigation = <NavPro className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
+      navigation = (
+        <NavPro
+          className={`navbar ${hideNavbar ? "hidden" : ""}`}
+          onLogout={handleLogout}
+        />
+      );
     } else {
-      navigation = <Nav className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogout={handleLogout} />;
+      navigation = (
+        <Nav
+          className={`navbar ${hideNavbar ? "hidden" : ""}`}
+          onLogout={handleLogout}
+        />
+      );
     }
   } else {
-    navigation = <Nav className={`navbar ${hideNavbar ? "hidden" : ""}`} onLogin={handleLogin} />;
+    navigation = (
+      <Nav
+        className={`navbar ${hideNavbar ? "hidden" : ""}`}
+        onLogin={handleLogin}
+      />
+    );
   }
 
   return (
@@ -112,6 +139,8 @@ function App() {
               <Route path="/Profile" element={<EditProfile />} />
               <Route path="/ViewProfile" element={<ViewProfile />} />
               <Route path="/Turnos" element={<ViewMedAppoint />} />
+              <Route path="/medTurnos" element={<ViewAppoint />} />
+              <Route path="/historial/:pacienteId" element={<ViewHistory />} />
               <Route path="/PedirTurno" element={<CreateMedAppoint />} />
               <Route path="/Profesionales" element={<MedReview />} />
               <Route path="/ProViewProfile" element={<ProViewProfile />} />

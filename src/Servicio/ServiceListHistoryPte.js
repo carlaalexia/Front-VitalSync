@@ -1,6 +1,6 @@
-const listAppoint = async () => {
+const listHistoryPte = async (id) => {
     try {
-      const response = await fetch('http://localhost:8080/vitalsync/turnos/listar', {
+      const response = await fetch(`http://localhost:8080/vitalsync/paciente/historial/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -15,4 +15,4 @@ const listAppoint = async () => {
     }
   };
   
-  export default listAppoint;
+  export default listHistoryPte;

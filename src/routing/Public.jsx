@@ -13,6 +13,8 @@ import ListMed from "../Pages/SuperAdmin/ListMed";
 import ProViewProfile from "../Pages/Doctor/ProViewProfile";
 import EditProfesional from "../Pages/Doctor/EditProfesional";
 import MewReviewAdmin from "../Pages/SuperAdmin/MewReviewAdmin";
+import ViewAppoint from "../Pages/Doctor/ViewAppoint";
+import ViewHistory from "../Pages/Doctor/ViewHistory";
 
 const Public = () => {
   return (
@@ -26,6 +28,8 @@ const Public = () => {
         <Route path="/Profile" element={<EditProfile />} />
         <Route path="/ViewProfile" element={<ViewProfile />} />
         <Route path="/Turnos" element={<ViewMedAppoint/>}/>
+        <Route path="/medTurnos" element={<ViewAppoint/>}/>
+        <Route path="/historial/:pacienteId" element={<ViewHistory/>}/>
         <Route path="/CreateAppoint" element={<CreateMedAppoint />} />
         <Route path="/Profesionales" element={<MedReview/>} />
         <Route path="/ProViewProfile" element={<ProViewProfile/>} />
