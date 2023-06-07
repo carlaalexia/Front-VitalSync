@@ -34,18 +34,18 @@ function NavPro() {
     <div className="bg-zinc-700 flex justify-around items-center py-1 shadow-md">
       <img className="h-24 w-auto mb-2" src="./assets/Logo3.png" alt="VitalS" />
       {/* ACERCA DE */}
-      <div className="font-bold text-white hover:text-teal-600 cursor-pointer relative">
+      <div className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative">
         <NavLink className="mr-3" to="/homePage">Inicio</NavLink>
       </div>
       {/* PROFESIONALES */}
       <span className="text-white ml-1">|</span> {/* Barra entre los elementos */}
-      <div className="font-bold text-white hover:text-teal-600 cursor-pointer relative">
+      <div className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative">
         <NavLink to="/Profesionales">Comentarios</NavLink>
       </div>
       {/* TURNOS */}
       <span className="text-white ml-1">|</span> {/* Barra entre los elementos */}
       <div
-        className="font-bold text-white hover:text-teal-600 cursor-pointer relative"
+        className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative"
         onClick={handleAppointMenuClick} // Agrega el evento onClick
       >
         Turnos
@@ -69,7 +69,7 @@ function NavPro() {
       <span className="text-white ml-1">|</span> {/* Barra entre los elementos */}
       {/* PERFIL */}
       <div
-        className="font-bold text-white hover:text-teal-600 cursor-pointer relative mr-10" 
+        className="font-bold text-white hover:text-[#25a1af] cursor-pointer relative mr-10" 
         onClick={handlePersonMenuClick} // Agrega el evento onClick
       >
         Dr/a   

@@ -28,7 +28,7 @@ const EditProfesional = () => {
     },
     {
       value:
-        "https://e7.pngegg.com/pngimages/65/330/png-clipart-physician-medicine-computer-icons-health-care-therapy-doctor-icon.png",
+        "https://cdn.icon-icons.com/icons2/582/PNG/512/asistante_icon-icons.com_55049.png",
       label: "Foto 4",
     },
     {
@@ -53,6 +53,8 @@ const EditProfesional = () => {
             honorario: response.data.honorario,
             matricula: response.data.matricula,
             foto: response.data.foto,
+            telemedicina: response.data.telemedicina || false, // Establecer valor por defecto si no existe
+            presencial: response.data.presencial || false, //
             estado: response.data.estado,
           });
         } else {
@@ -76,6 +78,8 @@ const EditProfesional = () => {
       honorario: "",
       matricula: "",
       foto: "",
+      telemedicina: false,
+      presencial: false,
       estado: null,
     },
     onSubmit: async (values) => {
@@ -88,12 +92,14 @@ const EditProfesional = () => {
         honorario: values.honorario,
         matricula: values.matricula,
         foto: values.foto,
+        telemedicina: values.telemedicina,
+        presencial: values.presencial,
         estado: values.estado,
       };
 
       try {
         await ServicioEditarProfesional(datosEditar, id);
-         navigate("/Alist");
+        navigate("/Alist");
         // Realiza cualquier otra acción necesaria después de editar el profesional
       } catch (error) {
         console.error("Error al editar el profesional:", error);
@@ -102,9 +108,9 @@ const EditProfesional = () => {
     },
   });
   return (
-    <div className="bg-[#b1e8df] bg-opacity-60 rounded-lg p-9">
+    <div className="rounded-lg p-9">
       <form onSubmit={formik.handleSubmit}>
-        <div className="space-y-12">
+        <div className="space-y-12 bg-[#b1e8df] bg-opacity-60">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-lg font-bold leading-10 text-emerald-900 text-center">
               Información del Profesional
@@ -246,16 +252,57 @@ const EditProfesional = () => {
                     onBlur={formik.handleBlur}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 pl-2"
                   >
-                    <option className="bg-gray-300" value="" disabled={formik.values.foto !== ""}>
+                    <option
+                      className="bg-gray-300"
+                      value=""
+                      disabled={formik.values.foto !== ""}
+                    >
                       Seleccione
                     </option>
                     {listaFotos.map((foto, index) => (
-                      
                       <option key={index} value={foto.value}>
                         {foto.label}
                       </option>
                     ))}
                   </select>
+                </div>
+              </div>
+              {/**PARA SELECCIONAR */}
+              <div className="flex justify-between ml-2 mt-5">
+                <div className="sm:col-span-3 w-1/2 ml-44 flex flex-col items-center">
+                  <input
+                    id="presencial"
+                    name="presencial"
+                    type="checkbox"
+                    checked={formik.values.presencial}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="form-checkbox h-5 w-5 text-emerald-600 transition duration-150 ease-in-out"
+                  />
+                  <label
+                    htmlFor="presencial"
+                    className="block text-sm font-bold leading-6 text-gray-900 mt-2"
+                  >
+                    Presencial
+                  </label>
+                </div>
+
+                <div className="sm:col-span-3 w-1/2 ml-2 flex flex-col items-center">
+                  <input
+                    id="telemedicina"
+                    name="telemedicina"
+                    type="checkbox"
+                    checked={formik.values.telemedicina}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="form-checkbox h-5 w-5 text-emerald-600 transition duration-150 ease-in-out"
+                  />
+                  <label
+                    htmlFor="telemedicina"
+                    className="block text-sm font-bold leading-6 text-gray-900 mt-2"
+                  >
+                    Telemedicina
+                  </label>
                 </div>
               </div>
             </div>

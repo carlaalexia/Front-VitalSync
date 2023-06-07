@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import FindMed from "../../Servicio/ServiceFindMed";
 import ServiceCreateAppoint from "../../Servicio/ServicioScheduleAppoint";
 import Contexto from "../../context/ContextPerson/Contexto";
+import "../../CSS/createmed.css";
 
 function CreateMedAppoint() {
   const { paciente } = useContext(Contexto);
@@ -135,36 +136,36 @@ function CreateMedAppoint() {
                 >
                   <option value="">Seleccionar</option>
                   <option value="Cardiologia">Cardiologia</option>
+                  <option value="Cirugía">Cirugía</option>
                   <option value="Clinica">Clinica Medica</option>
+                  <option value="Dermatología">Dermatologia</option>
+                  <option value="Gastroenterología">Gastroenterología</option>
                   <option value="Ginecologia">Ginecologia</option>
-                  <option value="Obstetricia">Obstetricia</option>
+                  <option value="Infectología">Infectología</option>
+                  <option value="Inmunología">Inmunología</option>
+                  <option value="Neurología">Neurología</option>
+                  <option value="Neumología">Neumología</option>
+                  <option value="Nefrología">Nefrología</option>
+                  <option value="Oftalmología">Oftalmología</option>
+                  <option value="Odontología">Odontología</option>
+                  <option value="Oncología">Oncología</option>
                   <option value="Otorrinolaringologia">
                     Otorrinolaringologia
                   </option>
-                  <option value="Pediatria">Pediatria</option>
-                  <option value="Dermatología">Dermatologia</option>
-                  <option value="Reumatologo">Reumatologia</option>
-                  <option value="Cirugía">Cirugía</option>
+                  <option value="Pediatría">Pediatría</option>
                   <option value="Psiquiatría">Psiquiatría</option>
-                  <option value="Odontología">Odontología</option>
-                  <option value="Traumatología">Traumatología</option>
-                  <option value="Oftalmología">Oftalmología</option>
-                  <option value="Inmunología">Inmunología</option>
                   <option value="Radiología">Radiología</option>
-                  <option value="Gastroenterología">Gastroenterología</option>
-                  <option value="Infectología">Infectología</option>
-                  <option value="Nefrología">Nefrología</option>
-                  <option value="Neurología">Neurología</option>
-                  <option value="Neumología">Neumología</option>
+                  <option value="Reumatología">Reumatologia</option>
+                  <option value="Traumatología">Traumatología</option>
                   <option value="Urología">Urología</option>
-                  <option value="Oncología">Oncología</option>
                 </select>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr className="mt-10"></hr>
+      <hr className="mt-14"></hr>
+
       <div className="relative mt-8 ml-20">
         {/* PRIMER DIV */}
         <div className="absolute top-0 left-0">
@@ -172,20 +173,26 @@ function CreateMedAppoint() {
             <table className="w-[630px] bg-teal-50 border border-gray-300 drop-shadow-md">
               <thead>
                 <tr className="bg-[#25a1af]">
-                  <th className="py-2 px-4 border-b text-center">Medico</th>
-                  <th className="py-2 px-4 border-b text-center">Ubicacion</th>
+                  <th className="py-2 px-4 border-b border-r text-center sticky left-0 bg-[#25a1af] z-10 medico-column">
+                    Medico
+                  </th>
+                  <th className="py-2 px-4 border-b border-r text-center sticky left-0 bg-[#25a1af] z-10 ubicacion-column">
+                    Ubicacion
+                  </th>
+                  <th></th>
                 </tr>
               </thead>
+
               <tbody>
                 {medicos.map((medico, index) => (
                   <tr
                     key={index}
-                    className={index % 2 === 0 ? "bg-teal-50" : ""}
+                    className={index % 2 === 0 ? "bg-teal-50" : "bg-white"}
                   >
-                    <td className="py-2 px-4 border-b text-center">
+                    <td className="py-2 px-4 border-b border-r text-center medico-column">
                       {medico.nombre} {medico.apellido}
                     </td>
-                    <td className="py-2 px-4 border-b text-center">
+                    <td className="py-2 px-4 border-b border-r text-center ubicacion-column">
                       {medico.ubicacion}
                     </td>
                     <td className="flex justify-center">
@@ -217,7 +224,8 @@ function CreateMedAppoint() {
           </div>
         </div>
 
-        <div className="flex justify-end mt-12 mr-30">
+        {/**SEGUNDO DIV */}
+        <div className="flex justify-end mt-10 mr-30">
           {mostrarOpcionesTurnos && medicoSeleccionado && (
             <div className="flex justify-center mr-40 bg-gray-300 bg-opacity-50 shadow-md p-4">
               <div className="flex gap-x-4">
