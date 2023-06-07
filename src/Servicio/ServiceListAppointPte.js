@@ -1,6 +1,6 @@
 const listAppointPte = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/vitalsync/paciente/turnos/${id}`, {
+      const response = await fetch(`http://localhost:8080/vitalsync/paciente/turnosPacienteId/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
