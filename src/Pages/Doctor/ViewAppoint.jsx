@@ -54,39 +54,51 @@ function ViewAppoint() {
   }, [isFetching, turnos]);
 
   return (
-    <div className="mt-20 ml-72 justify-center items-center">
+    <div className="mt-11 ml-24 justify-center items-center">
       <div className="text-left">
-        <h2 className="mb-10 ml-40 text-2xl font-bold leading-9 tracking-tight text-cyan-900 animate_animated animate_fadeInLeft">
+        <h2 className="mb-10 ml-44 text-2xl font-black leading-9 tracking-tight text-cyan-900 animate_animated animate_fadeInLeft">
           Mis turnos
         </h2>
       </div>
       <div className="max-w-screen-lg mx-auto">
-        <table className="w-[700px] bg-teal-50 border border-gray-300 drop-shadow-md">
+        <table className="w-[1000px] bg-teal-50 border border-gray-300 drop-shadow-md">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b">Paciente</th>
-              <th className="py-2 px-4 border-b">Fecha</th>
-              <th className="py-2 px-4 border-b">Hora</th>
-              <th className="py-2 px-4 border-b">Concluido</th>
+            <tr className="bg-[#208e9a]">
+              <th className="py-2 px-4 border-b border-r text-white">
+                Paciente
+              </th>
+              <th className="py-2 px-4 border-b border-r text-white">Fecha</th>
+              <th className="py-2 px-4 border-b border-r text-white">Hora</th>
+              <th className="py-2 px-4 border-b border-r text-white">
+                Concluido
+              </th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {turnos.map((turno, index) => (
               <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
-                <td className="py-2 px-4 border-b">{turno.paciente}</td>
-                <td className="py-2 px-4 border-b">{turno.fecha}</td>
-                <td className="py-2 px-4 border-b">{turno.hora}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.paciente}
+                </td>
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.fecha}
+                </td>
+                <td className="py-2 px-4 border-b border-r text-center">
+                  {turno.hora}
+                </td>
+                <td className="py-2 px-4 border-b border-r">
                   <input
                     type="checkbox"
                     checked={turno.concluido}
-                    className="ml-8"
+                    className="ml-12"
                   />
                 </td>
                 <td className="py-2 px-4 border-b">
                   <Link
                     to={`/historial/${turno.id_paciente}`}
-                    className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded"
+                    className="block w-full border-gray-700 bg-gray-200 hover:bg-[#25a1af] text-gray-700 hover:text-white font-bold py-2 px-4 rounded text-center"
+                    style={{ minWidth: "100px" }}
                   >
                     Historial médico
                   </Link>
