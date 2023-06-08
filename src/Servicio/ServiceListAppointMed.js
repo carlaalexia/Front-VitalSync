@@ -1,7 +1,7 @@
 
 const listAppointMed = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/vitalsync/profesional/turnos/${id}`, {
+      const response = await fetch(`http://localhost:8080/vitalsync/profesional/listar-turnos-tomados/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
