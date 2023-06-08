@@ -1,104 +1,102 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import listAppointMed from "../../Servicio/ServiceListAppointMed";
-import Contexto from "../../context/ContextPerson/Contexto";
-import findPacientId from "../../Servicio/ServiceFindPacientId";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import addObservation from "../../Servicio/ServiceAddObservation";
+import listHistoryPte from "../../Servicio/ServiceListHistoryPte";
 
-function ViewAppoint() {
-  const [turnos, setTurnos] = useState([]);
-  const { profesional } = useContext(Contexto);
+const ViewHistory = () => {
+  const { pacienteId } = useParams();
+  const [historialMedico, setHistorialMedico] = useState([]);
+  const [observacion, setObservacion] = useState("");
 
-  const [fetchCompleted, setFetchCompleted] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
-
+  //Llamada al historial medico del paciente por id
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchHistorialMedico = async () => {
       try {
-        const data = await listAppointMed(profesional.id);
-        if (Array.isArray(data)) {
-          setTurnos(data);
-          setFetchCompleted(true);
-          setIsFetching(true);
-        } else {
-          console.log("Los datos devueltos no son un array:", data);
-        }
+        // Realiza la llamada a tu servicio o API para obtener el historial médico del paciente con el pacienteId
+        // Guarda los datos obtenidos en el estado
+        const response = await listHistoryPte(pacienteId); // Reemplaza obtenerHistorialMedico con la llamada real a tu servicio
+
+        setHistorialMedico(response);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchData();
-  }, []);
 
-  useEffect(() => {
-    const fetchPacienteData = async () => {
-      if (isFetching) {
-        const updatedTurnos = [];
-        for (const turno of turnos) {
-          try {
-            const pacienteData = await findPacientId(turno.id_paciente);
-            const updatedTurno = {
-              ...turno,
-              paciente: `${pacienteData.nombre} ${pacienteData.apellido}`,
-            };
-            updatedTurnos.push(updatedTurno);
-          } catch (error) {
-            console.log(error);
-            updatedTurnos.push(turno);
-          }
-        }
-        setTurnos(updatedTurnos);
-        setIsFetching(false);
-      }
-    };
-    fetchPacienteData();
-  }, [isFetching, turnos]);
+    fetchHistorialMedico();
+  }, [pacienteId]);
+
+  const handleAgregarObservacion = async () => {
+    try {
+      // Realiza la llamada a tu servicio o API para agregar la observación a la base de datos
+      await addObservation(pacienteId, observacion); // Reemplaza agregarObservacion con la llamada real a tu servicio
+      // Actualiza el estado o realiza cualquier otra acción necesaria después de agregar la observación
+      // ...
+      //se agrega lo que esta antes y lo de ahora
+      setHistorialMedico((prevHistorialMedico) => ({
+        ...prevHistorialMedico,
+        observaciones: observacion,
+      }));
+      // Limpia el campo de observación
+      setObservacion("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className="mt-20 ml-72 justify-center items-center">
-      <div className="text-left">
-        <h2 className="mb-10 text-2xl font-bold leading-9 tracking-tight text-cyan-900 animate__animated animate__fadeInLeft">
-          Mis turnos
-        </h2>
-      </div>
-      <div className="max-w-screen-lg mx-auto">
-        <table className="w-[700px] bg-teal-50 border border-gray-300 drop-shadow-md">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b">Paciente</th>
-              <th className="py-2 px-4 border-b">Fecha</th>
-              <th className="py-2 px-4 border-b">Hora</th>
-              <th className="py-2 px-4 border-b">Concluido</th>
-              <th className="py-2 px-4 border-b">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {turnos.map((turno, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-teal-50" : ""}>
-                <td className="py-2 px-4 border-b">{turno.paciente}</td>
-                <td className="py-2 px-4 border-b">{turno.fecha}</td>
-                <td className="py-2 px-4 border-b">{turno.hora}</td>
-                <td className="py-2 px-4 border-b">
-                  <input
-                    type="checkbox"
-                    checked={turno.concluido}
-                    className="ml-8"
-                  />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Link
-                    to={`/historial/${turno.id_paciente}`}
-                    className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded"
-                  >
-                    Historial médico
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="mt-10 mx-auto max-w-md">
+      <h2 className="text-2xl font-bold mb-4 text-cyan-900">Historial Médico</h2>
+      <div className="bg-[#208e9a] bg-opacity-40 rounded-md shadow-md p-4">
+        <div className="mb-4">
+          <label className="font-bold">Fecha: </label>
+          <span>{historialMedico.fecha}</span>
+        </div>
+        <hr className="my-4 border-gray-300" /> {/* Línea divisoria */}
+        <div className="mb-4">
+          <label className="font-bold">Nombre: </label>
+          <span>{historialMedico.nombre}</span>
+        </div>
+        <hr className="my-4 border-gray-300" /> {/* Línea divisoria */}
+        <div className="mb-4">
+          <label className="font-bold">Apellido: </label>
+          <span>{historialMedico.apellido}</span>
+        </div>
+        <hr className="my-4 border-gray-300" /> {/* Línea divisoria */}
+        <div>
+          <label className="font-bold">Observaciones: </label>
+          <p>{historialMedico.observaciones}</p>
+        </div>
+        <hr className="my-4 border-gray-300" /> {/* Línea divisoria */}
+        <div>
+          <label className="font-bold">Agregar observacion: </label>
+          <input
+            id="observacion"
+            type="text"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-teal-700 focus:ring-2 focus:ring-inset focus:ring-emerald-700 text-center sm:leading-7"
+            value={observacion}
+            onChange={(e) => setObservacion(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-center mt-5">
+          <button
+            type="submit"
+            className="w-32 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={handleAgregarObservacion}
+          >
+            Agregar
+          </button>
+          <Link to={`/medTurnos`}>
+            <button
+              type="submit"
+              className="w-32 ml-3 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Atras
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default ViewAppoint;
+export default ViewHistory;
