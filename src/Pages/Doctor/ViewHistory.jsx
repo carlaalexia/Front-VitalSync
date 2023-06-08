@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import addObservation from "../../Servicio/ServiceAddObservation";
 import listHistoryPte from "../../Servicio/ServiceListHistoryPte";
+import { AgregarEntrada } from "../../Servicio/ServiceHistoryPacient";
 
 const ViewHistory = () => {
   const { pacienteId } = useParams();
@@ -27,14 +27,10 @@ const ViewHistory = () => {
 
   const handleAgregarObservacion = async () => {
     try {
-      // Realiza la llamada a tu servicio o API para agregar la observación a la base de datos
-      await addObservation(pacienteId, observacion); // Reemplaza agregarObservacion con la llamada real a tu servicio
-      // Actualiza el estado o realiza cualquier otra acción necesaria después de agregar la observación
-      // ...
-      //se agrega lo que esta antes y lo de ahora
+      await AgregarEntrada(pacienteId, observacion); 
       setHistorialMedico((prevHistorialMedico) => ({
         ...prevHistorialMedico,
-        observaciones: observacion,
+        observaciones: historialMedico.observacion,
       }));
       // Limpia el campo de observación
       setObservacion("");

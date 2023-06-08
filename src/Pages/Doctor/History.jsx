@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import listAppointMed from "../../Servicio/ServiceListAppointMed";
+import { useParams, Link } from "react-router-dom";
 import Contexto from "../../context/ContextPerson/Contexto";
+import listAppointMed from "../../Servicio/ServiceListAppointMed";
 import findPacientId from "../../Servicio/ServiceFindPacientId";
+import { VerHistorial } from "../../Servicio/ServiceHistoryPacient";
 
-function ViewAppoint() {
+const History = () => {
   const [turnos, setTurnos] = useState([]);
   const { profesional } = useContext(Contexto);
 
@@ -110,6 +111,5 @@ function ViewAppoint() {
       </div>
     </div>
   );
-}
-
-export default ViewAppoint;
+};
+export default History;

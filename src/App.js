@@ -26,6 +26,7 @@ import EditProfesional from "./Pages/Doctor/EditProfesional";
 import MewReviewAdmin from "./Pages/SuperAdmin/MewReviewAdmin";
 import ViewAppoint from "./Pages/Doctor/ViewAppoint";
 import ViewHistory from "./Pages/Doctor/ViewHistory";
+import History from "./Pages/Doctor/History"
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -150,6 +151,7 @@ function App() {
                 element={<EditProfesional />}
               />
               <Route path="/ControlReview" element={<MewReviewAdmin />} />
+              <Route path="/History" element={<History />} />
             </Routes>
           </div>
         </div>
