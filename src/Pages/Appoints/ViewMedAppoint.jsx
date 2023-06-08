@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { BsFillCalendarCheckFill, BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import listAppointPte from "../../Servicio/ServiceListAppointPte";
+import { CancelarTurno } from "../../Servicio/ServiceListAppointPte";
 import findMedId from "../../Servicio/ServiceFindMedId";
 import Contexto from "../../context/ContextPerson/Contexto";
 
@@ -10,7 +11,6 @@ function ViewMedAppoint() {
   const [turnos, setTurnos] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +27,19 @@ function ViewMedAppoint() {
 
     fetchData();
   }, []);
+
+  const handleCancelarTurno = async (id) => {
+
+    console.log("algun dia llegara " + id)
+    try {
+      const response = await CancelarTurno(id);
+      console.log("se elimino!" + response);
+      // Realiza acciones adicionales si es necesario
+    } catch (error) {
+      console.log("no se elimino :/" + error);
+      // Maneja el error de cancelación del turno
+    }
+  };
 
   useEffect(() => {
     const fetchProfesionalData = async () => {
@@ -97,7 +110,10 @@ function ViewMedAppoint() {
                   {turno.especialidad}
                 </td>
                 <td className="py-2 px-4 border-b">
-                  <button className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded ml-10">
+                  <button
+                    className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded ml-10"
+                    onClick={() => handleCancelarTurno(turno.id_turno)}
+                  >
                     Cancelar turno
                   </button>
                 </td>
