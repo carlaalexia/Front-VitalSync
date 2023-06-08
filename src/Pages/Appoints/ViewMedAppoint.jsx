@@ -11,6 +11,7 @@ function ViewMedAppoint() {
   const [turnos, setTurnos] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [turnoEliminado, setTurnoEliminado] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,11 +30,10 @@ function ViewMedAppoint() {
   }, []);
 
   const handleCancelarTurno = async (id) => {
-
-    console.log("algun dia llegara " + id)
     try {
       const response = await CancelarTurno(id);
       console.log("se elimino!" + response);
+      setTurnoEliminado(id);
       // Realiza acciones adicionales si es necesario
     } catch (error) {
       console.log("no se elimino :/" + error);
@@ -92,33 +92,36 @@ function ViewMedAppoint() {
             </tr>
           </thead>
           <tbody>
-            {turnos.map((turno, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? "bg-teal-50" : "bg-white"}
-              >
-                <td className="py-2 px-4 border-b border-r text-center">
-                  {turno.fecha}
-                </td>
-                <td className="py-2 px-4 border-b border-r text-center">
-                  {turno.hora}
-                </td>
-                <td className="py-2 px-4 border-b border-r text-center">
-                  {turno.nombre} {turno.apellido}
-                </td>
-                <td className="py-2 px-4 border-b border-r text-center">
-                  {turno.especialidad}
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <button
-                    className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded ml-10"
-                    onClick={() => handleCancelarTurno(turno.id_turno)}
+            {turnos.map(
+              (turno, index) =>
+                turno.id_turno !== turnoEliminado && (
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "bg-teal-50" : "bg-white"}
                   >
-                    Cancelar turno
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    <td className="py-2 px-4 border-b border-r text-center">
+                      {turno.fecha}
+                    </td>
+                    <td className="py-2 px-4 border-b border-r text-center">
+                      {turno.hora}
+                    </td>
+                    <td className="py-2 px-4 border-b border-r text-center">
+                      {turno.nombre} {turno.apellido}
+                    </td>
+                    <td className="py-2 px-4 border-b border-r text-center">
+                      {turno.especialidad}
+                    </td>
+                    <td className="py-2 px-4 border-b">
+                      <button
+                        className="border-gray-700 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 font-bold py-2 px-4 rounded ml-10"
+                        onClick={() => handleCancelarTurno(turno.id_turno)}
+                      >
+                        Cancelar turno
+                      </button>
+                    </td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       </div>
