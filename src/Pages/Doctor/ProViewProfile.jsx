@@ -7,7 +7,8 @@ import {
   BsInfoCircleFill,
   BsFillGeoAltFill,
 } from "react-icons/bs";
-
+import { MdOutlineBroadcastOnPersonal } from "react-icons/md";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { TbReportMoney } from "react-icons/tb";
 import { useLocation, Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
@@ -111,6 +112,28 @@ function ProViewProfile() {
                 </dt>
                 <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
                   {profesional && profesional.honorario}
+                </dd>
+              </div>
+              <div
+                className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-center
+              ml-5"
+              >
+                <dt className="text-base font-bold leading-6 text-emerald-900 flex items-center">
+                  <HiOutlineBuildingOffice2 className="mr-2 h-5 w-5" /> Presencial
+                </dt>
+                <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+                  {profesional && (profesional.presencial ? "Si" : "No")}
+                </dd>
+              </div>
+              <div
+                className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-center
+              ml-5"
+              >
+                <dt className="text-base font-bold leading-6 text-emerald-900 flex items-center">
+                  <MdOutlineBroadcastOnPersonal className="mr-2 h-5 w-5" /> Telemedicina
+                </dt>
+                <dd className="mt-1 ml-20 text-sm font-semibold leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+                  {profesional && (profesional.telemedicina ? "Si" : "No")}
                 </dd>
               </div>
             </dl>

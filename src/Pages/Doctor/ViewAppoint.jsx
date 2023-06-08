@@ -61,7 +61,7 @@ function ViewAppoint() {
         </h2>
       </div>
       <div className="max-w-screen-lg mx-auto">
-        <table className="w-[1000px] bg-teal-50 border border-gray-300 drop-shadow-md">
+        <table className="w-[1000px] bg-teal-50 border border-gray-300 drop-shadow-md mb-10">
           <thead>
             <tr className="bg-[#208e9a]">
               <th className="py-2 px-4 border-b border-r text-white">
